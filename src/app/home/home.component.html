@@ -1,0 +1,63 @@
+<div class="home">
+    <div class="pro">
+      <a href="https://phenomenal-pasca-0e27e1.netlify.app">My-portfolio</a>
+    </div>
+  
+  
+    <div class="text">
+      <h2>LE STYLIST</h2>
+      <h1>wear your clothes</h1>
+      <div class="butt" (click)="scrollToSection()">
+        <svg class="down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  
+    <!-- Swiper Section -->
+    <div >
+      <ngx-slick-carousel
+        class="carousel"
+        [config]="slideConfig"
+      >
+        <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+          <img [src]="slide.img" alt="Slide">
+        </div>
+      </ngx-slick-carousel>
+    </div>
+  
+  <!-- About Section -->
+  <section id="TRENDING">
+    <div class="about">
+      <div class="container">
+        <div class="prod">
+          <div class="big">TRENDING</div>
+          <div class="sm">TRENDING</div>
+        </div>
+        <ngx-slick-carousel
+        class="carousel"
+        [config]="PslideConfig"
+      >
+        <div ngxSlickItem *ngFor="let product of arr" class="slidem sliderm">
+          <div class="ca">
+            <div class="imagem t">
+              <img class="imgm t" [src]="imgurl+product.imgeURL" [alt]="product.name" />
+            </div>
+            <div class="txtm">
+              <div class="lablem">{{ product.name }}</div>
+              <div class="all">
+                <div class="pricem">{{ product.price  }}$</div>
+                <div class="ratem">
+                  <span class="starsm">★★★★☆</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+      </div>
+    </div>
+  </section>
+  <app-pic></app-pic>
+  <app-all-produect ></app-all-produect>

@@ -1,0 +1,28 @@
+<div class="nav">
+  <a href="/" *ngIf="Isuser" class="logo">E-commerce</a>
+  <a href="/" *ngIf="!Isuser" class="logo">Dashboard</a>
+  <div class="list">
+    <ul class="list" *ngIf="Isuser">
+      <li class="item"><a routerLink="/" class="home-na">Home</a></li>
+      <li class="item"><a href="#TRENDING" class="home-na">Trending</a></li>
+      <li class="item"><a href="#products" class="home-na">Produects</a></li>
+     </ul>
+     <ul class="list" *ngIf="!Isuser">
+      <li class="item"><a routerLink="/admin/addproduect" class="home-na">Add Prodiect</a></li>
+      <li class="item"><a href="/admin" class="home-na">Produects</a></li>
+      <li class="item"><a href="/admin/orders" class="home-na">Orders</a></li>
+      <li class="item"><a href="/admin/sales" class="home-na">Sales</a></li>
+     </ul>
+      <li class="item" *ngIf="login"><a routerLink="/login" (click)="logout()" class="home-na">logout</a></li>
+      <li class="item" *ngIf="!login"><a routerLink="/login"  class="home-na">login</a></li>
+    
+    <div class="icons" *ngIf="Isuser">
+     
+      <!-- <a href="#quick" class="item cart"></a> -->
+        <li class="item"><a routerLink="/cart" class="home-na">Cart</a>
+          <span class="length">0</span>
+        </li>
+      
+    </div>
+  </div>
+</div>

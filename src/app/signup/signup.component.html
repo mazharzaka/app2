@@ -1,0 +1,66 @@
+<div class="login">
+    <div class="container" id="container">
+    
+        <div class="form-container sign-in-container">
+            <form  #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+                <h1>Create Account</h1>
+                <!-- <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span> -->
+                <input type="text" #username="ngModel" name="username"   [(ngModel)]="user.username" required minlength="3" placeholder="Name" />
+                <div class="vaild" *ngIf="myForm.controls['username']?.invalid && myForm.controls['username']?.touched">
+                    <small *ngIf="myForm.controls['username']?.errors?.['required']">Username is required.</small>
+                    <small *ngIf="myForm.controls['username']?.errors?.['minlength']">Username must be at least 3 characters.</small>
+                  </div>
+                <input type="email" #email="ngModel" name="email"  [(ngModel)]="user.email" required email placeholder="Email" />
+                <div class="vaild" *ngIf="myForm.controls['email']?.invalid && myForm.controls['email']?.touched">
+                    <small *ngIf="myForm.controls['email']?.errors?.['required']">Email is required.</small>
+                    <small *ngIf="myForm.controls['email']?.errors?.['email']">Invalid email format.</small>
+                  </div>
+                <input type="password" #password="ngModel" name="password"  [(ngModel)]="user.password" required minlength="6"  placeholder="Password" />
+                <div  class="vaild"  *ngIf="myForm.controls['password']?.invalid && myForm.controls['password']?.touched">
+                    <small *ngIf="myForm.controls['password']?.errors?.['required']">Password is required.</small>
+                    <small *ngIf="myForm.controls['password']?.errors?.['minlength']">Password must be at least 6 characters.</small>
+                  </div>
+                  <input id="confirmPassword" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="confirmPassword" required />
+                  <div class="vaild" *ngIf="user.password !== user.confirmPassword && myForm.submitted">
+                    <small>Passwords do not match.</small>
+                  </div>
+                <input type="text" #phone="ngModel" name="phone" [(ngModel)]="user.phone" required pattern="^\d{10}$" placeholder="phone" />
+                <div class="vaild" *ngIf="myForm.controls['phone']?.invalid && myForm.controls['phone']?.touched">
+                    <small *ngIf="myForm.controls['phone']?.errors?.['required']">Phone is required.</small>
+                    <small *ngIf="myForm.controls['phone']?.errors?.['pattern']">Phone must be 10 digits.</small>
+                  </div>
+                <input type="text" #address="ngModel" name="address"  [(ngModel)]="user.address" required minlength="10" placeholder="address" />
+                <div class="vaild" *ngIf="myForm.controls['address']?.invalid && myForm.controls['address']?.touched">
+                    <small *ngIf="myForm.controls['address']?.errors?.['required']">Address is required.</small>
+                    <small *ngIf="myForm.controls['address']?.errors?.['minlength']">Address must be at least 10 characters.</small>
+                  </div>
+                <input type="text" #userType="ngModel" name="userType"  ngModel placeholder="userType" />
+                
+                <button type="submit" [disabled]="myForm.invalid">Sign Up</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                
+                <div class="overlay-panel overlay-right">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" routerLink="/login" id="signIn">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <footer>
+        <p>
+            Created with <i class="fa fa-heart"></i> by
+            <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+            - Read how I created this and how you can join the challenge
+            <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+        </p>
+    </footer> -->
+    </div>

@@ -1,0 +1,35 @@
+<section id="products">
+    <div class="prodects">
+      <div class="prod">
+        <div class="big">PRODUCTS</div>
+        <div class="sm">Our PRODUCTS</div>
+      </div>
+      <div class="contain">
+      <div class="container" *ngFor="let product of arr">
+        <div class="overlay">
+          <div class="items"></div>
+          <div class="items head">
+            <p>{{product.name}}</p>
+            <hr>
+          </div>
+          <div class="items price">
+            <!-- <p class="old">$699</p> -->
+            <p class="new">{{product.price}} $</p>
+          </div>
+          <div class="items cart">
+
+            <span (click)="addtocart(product._id)">ADD TO CART</span>
+          </div>
+        </div>
+        <img [src]="imgurl+product.imgeURL" alt="Flower Embroidery Hoop Art" class="product-image">
+      </div></div>
+    </div>      
+        <!-- Sample Product Card -->
+     
+
+      <div class="All-pro">
+        <a href="/allproducts">All PRODUCTS</a>
+      </div>
+   
+
+  </section>

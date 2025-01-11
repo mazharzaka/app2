@@ -1,0 +1,28 @@
+<div class="login">
+    <div class="container" id="container">
+
+        <div class="form-container sign-in-container">
+            <!-- #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" -->
+            <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)"> 
+                <h1>add prodects</h1>
+                
+                <input type="text" #username="ngModel" name="name" ngModel placeholder="Name" />
+                <input type="text" #desc="ngModel" name="desc" ngModel placeholder="description" />
+                <input type="number" #price="ngModel" name="price" ngModel placeholder="Price" />
+                <input type="file" #productImage="ngModel" name="productImage" (change)="filechange($event)" ngModel accept="image/*" />
+
+                <button type="submit">add produect</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+
+                <div class="overlay-panel overlay-right">
+                    <h1>Welcome Back!</h1>
+                    <p>add new prodect</p>
+                    <!-- <button class="ghost" routerLink="/login" id="signIn">Sign In</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

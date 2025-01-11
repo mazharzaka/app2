@@ -1,0 +1,49 @@
+.text-pic {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 8vw; 
+    margin-top: 400px;
+    align-items: center;
+    color: #fff;
+    font-weight: 700;
+    margin-left: -5%; /* استخدم نسبة مئوية لتجنب التداخل */
+  }
+  
+  .pic {
+    width: 100%;
+    height: auto; /* اجعل الارتفاع تلقائيًا */
+    margin-top: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  
+  .pic img {
+    width: 100%;
+    height: auto; /* حافظ على النسب */
+  }
+  
+  /* استعلامات الوسائط */
+  @media (max-width: 768px) {
+    .text-pic {
+      font-size: 12vw; /* أكبر خط للشاشات الأصغر */
+      margin-left: 0; /* ضبط الهامش */
+    margin-top: 200px;
+
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .text-pic {
+      font-size: 16vw; /* خط أكبر لشاشات الهواتف */
+      margin-top: 16px;
+    }
+  
+    .pic {
+      height: 300px; /* ارتفاع أصغر للصور */
+    }
+  }
+  

@@ -1,0 +1,73 @@
+<div class="cart-list">
+    <div class="cotain">
+      <div class="big">Cart</div>
+      <div class="wish">
+        Cart <span>[{{arr.length}}]</span>
+      </div>
+    </div>
+
+    <!-- If cart is empty -->
+    
+    <div class="card-list" *ngIf="arr.length===0">
+      <div>
+        <div class="big-icon hearty car">
+          <i class="fa fa-cart-arrow-down"></i>
+        </div>
+        <div class="no">Shopping Cart is Empty.</div>
+      </div>
+    </div>
+   
+
+    <!-- If cart contains items -->
+    <div class="card-list" *ngIf="arr.length>0">
+      <table>
+        <thead class="titoftable">
+          <tr>
+            <th colspan="2">PRODUCT</th>
+            <th>PRICE</th>
+            <th>QUANTITY</th>
+            <th colspan="2">TOTAL</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody><ng-container *ngFor="let p of arr">
+          <tr [ngClass]="{'active':!p.status&&p.received}" >
+            <td class="watch-pic">
+              <a>
+                <img class="sm-pic" [src]="imgurl+p.produect.imgeURL" alt="Product Image">
+              </a>
+            </td>
+            <td class="tit-table">{{p.produect.name}}</td>
+            <td class="price-table">{{p.produect.price}}$</td>
+            <td class="qty-table">
+              <div class="quantity-control">
+                <!-- <button class="decrement">-</button> -->
+                {{ p.qty}}
+                <!-- <input type="number" class="input" [value]="" min="0" max="9"> -->
+                <!-- <button class="increment">+</button> -->
+              </div>
+            </td>
+            <td class="price-table" colspan="2">{{p.produect.price*p.qty}}$</td>
+            <!-- <td class="price-table" *ngIf="!p.status" colspan="1">{{p.produect.price*p.qty}}$</td> -->
+            <td class="qty-table" *ngIf="p.status">
+              <span class="button" (click)="dele(p._id)"  >Delete</span>
+            </td>
+            <td class="qty-table" colspan="1" *ngIf="!p.status&&!p.received">
+              <span class="deli" >Product in delivery stage</span>
+            </td>
+            <td class="qty-table" colspan="1" *ngIf="!p.status&&p.received">
+              <span class="received" >Product is received</span>
+            </td>
+          </tr></ng-container>
+          <!-- Add more product +s(click)="dele(p._id)" as needed -->
+        </tbody>
+      </table>
+      <div class="btns">
+        <div class="btn-cart">Update Cart</div>
+        <div routerLink="/" class="btn-cart">
+          <a class="shopping">Continue Shopping</a>
+        </div>
+        <!-- <div class="btn-cart">Clear Cart</div> -->
+      </div>
+    </div>
+  </div>
