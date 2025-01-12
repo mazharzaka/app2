@@ -18,6 +18,8 @@ import { AddprodectComponent } from './addprodect/addprodect.component';
 import { EditComponent } from './edit/edit.component';
 import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
 import { SalesComponent } from './sales/sales.component';
+import { UserorderComponent } from './userorder/userorder.component';
+import { WatchproduectComponent } from './watchproduect/watchproduect.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SalesComponent } from './sales/sales.component';
     AddprodectComponent,
     EditComponent,
     OrdersAdminComponent,
-    SalesComponent
+    SalesComponent,
+    UserorderComponent,
+    WatchproduectComponent
   ],
   imports: [
     BrowserModule,

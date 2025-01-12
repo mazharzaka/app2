@@ -56,7 +56,6 @@ body {
   bottom: 0;
   margin: auto;
   overflow: hidden;
-  cursor: pointer;
   -webkit-box-shadow: 0 0 5px #000;
   box-shadow: 0 0 5px #000;
 margin-bottom: 15px;
@@ -81,7 +80,7 @@ margin-bottom: 15px;
   opacity: 0;
   transition: all 0.5s;
   font-family: 'Playfair Display', serif;
-  position: absolute;  /* لضمان أن الـ overlay يظهر فوق الصورة */
+  position: absolute;  
   top: 0;
   left: 0;
 }
@@ -133,6 +132,8 @@ margin-bottom: 15px;
   }
   span {
     margin-left: 10px;
+  cursor: pointer;
+
   }
 }
 

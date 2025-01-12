@@ -18,7 +18,7 @@ this._http.getadmin().subscribe({
   next:(data:any)=>{
     console.log(data);
     this.imgurl=this._http.imgUrl
-    this.arr=data
+    this.arr=data.filter((e:any) => e.received ===true);
     this.total= this.arr.reduce((a, b) =>  a + b.qty * b.produect.price, 0)
     console.log(this.total);
     

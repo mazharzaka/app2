@@ -20,4 +20,9 @@ delepro(data:any): Observable <any> {
 editpro(data:any): Observable <any> {
   console.log(data);
   return this.http.post<any> (this.url+'/edit',data)
-}}
+}
+details(data:any): Observable <any> {
+  console.log(data);
+  return this.http.post<any> (this.url+'/one',data)
+}
+}

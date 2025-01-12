@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { CartService } from '../cart.service';
 import { LogService } from '../log.service';
-// import { ApiService } from '../api.service';
+import { CartService } from '../cart.service';
 
 @Component({
-  selector: 'app-cart',
+  selector: 'app-userorder',
   standalone: false,
   
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  templateUrl: './userorder.component.html',
+  styleUrl: './userorder.component.css'
 })
-export class CartComponent {
+export class UserorderComponent {
 constructor(private Auth:LogService,private Cart:CartService){}
   arr:any[]=[]
     imgurl=''
@@ -20,8 +19,8 @@ const userId=this.Auth.decode().userId
   this.Cart.getcart({userid:userId}).subscribe( {
       next: (data) => {
         this.imgurl=this.Cart.imgUrl
-        this.arr=data.filter((e:any) => e.received !==true);
-        console.log(data);
+        this.arr=data.filter((e:any) => e.received ===true);
+        // console.log(data);
         
       },
       error: (err) => {
@@ -43,5 +42,5 @@ dele(data:any){
     },
   });
   
-}  
+} 
 }

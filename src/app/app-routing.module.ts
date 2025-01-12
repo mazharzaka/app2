@@ -11,6 +11,8 @@ import { EditComponent } from './edit/edit.component';
 import { dashGuard } from './gards/dash.guard';
 import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
 import { SalesComponent } from './sales/sales.component';
+import { UserorderComponent } from './userorder/userorder.component';
+import { WatchproduectComponent } from './watchproduect/watchproduect.component';
 
 
 const routes: Routes = [
@@ -18,6 +20,8 @@ const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"signup",component:SignupComponent},
   {path:"cart",component:CartComponent,canActivate:[gardGuard]},
+  {path:"details",component:WatchproduectComponent,canActivate:[gardGuard]},
+  {path:"UpdateCart",component:UserorderComponent,canActivate:[gardGuard]},
   {path:"admin",component:DashboardComponent,canActivate:[dashGuard]},
   {path:"edit",component:EditComponent,canActivate:[dashGuard]},
   {path:"admin/orders",component:OrdersAdminComponent,canActivate:[dashGuard]},
