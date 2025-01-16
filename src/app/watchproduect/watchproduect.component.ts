@@ -21,7 +21,7 @@ export class WatchproduectComponent {
     this.route.queryParamMap.subscribe((params) => {
       this.productId = params.get('id');
       console.log(this.productId);
-      this.Api.editpro({id:this.productId}).subscribe(data=>{
+      this.Api.details({id:this.productId}).subscribe(data=>{
         this.imgurl=this.Api.imgUrl
     
         this.product=data;

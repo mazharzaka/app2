@@ -20,7 +20,7 @@ constructor(private apiService:ApiService,private Auth:LogService,private Cart:C
     this.apiService.getData().subscribe(data=>{
       console.log(data);
       this.imgurl=this.apiService.imgUrl
-      this.arr=data
+      this.arr=data.filter(e=>e.Isdeleted!==true)
     })
   }
 addtocart(id:any){
