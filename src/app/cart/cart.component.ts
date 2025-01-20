@@ -20,7 +20,9 @@ const userId=this.Auth.decode().userId
   this.Cart.getcart({userid:userId}).subscribe( {
       next: (data) => {
         this.imgurl=this.Cart.imgUrl
-        this.arr=data.filter((e:any) => e.received !==true);
+        this.arr=data.filter((e:any) =>e.Isdeleted
+        !== true)
+
         console.log(data);
         
       },

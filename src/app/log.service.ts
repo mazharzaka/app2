@@ -16,7 +16,7 @@ export class LogService {
    }
   private token:BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
   login(data:any): Observable<any> {
-    console.log(data);
+    // console.log(data);
     
     return this.http.post<any>('http://localhost:3000/user/login',data).pipe(
       tap((res:any)=>{

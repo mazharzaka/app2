@@ -20,6 +20,8 @@ import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
 import { SalesComponent } from './sales/sales.component';
 import { UserorderComponent } from './userorder/userorder.component';
 import { WatchproduectComponent } from './watchproduect/watchproduect.component';
+import { CategoryComponent } from './category/category.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { WatchproduectComponent } from './watchproduect/watchproduect.component'
     OrdersAdminComponent,
     SalesComponent,
     UserorderComponent,
-    WatchproduectComponent
+    WatchproduectComponent,
+    CategoryComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

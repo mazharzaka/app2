@@ -18,7 +18,7 @@ export class AllProduectComponent {
 constructor(private apiService:ApiService,private Auth:LogService,private Cart:CartService,private route:Router){}
   ngOnInit(): void {
     this.apiService.getData().subscribe(data=>{
-      console.log(data);
+      // console.log(data);
       this.imgurl=this.apiService.imgUrl
       this.arr=data.filter(e=>e.Isdeleted!==true)
     })

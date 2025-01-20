@@ -13,6 +13,7 @@ import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
 import { SalesComponent } from './sales/sales.component';
 import { UserorderComponent } from './userorder/userorder.component';
 import { WatchproduectComponent } from './watchproduect/watchproduect.component';
+import { CategoryComponent } from './category/category.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:"cart",component:CartComponent,canActivate:[gardGuard]},
   {path:"details",component:WatchproduectComponent,canActivate:[gardGuard]},
   {path:"UpdateCart",component:UserorderComponent,canActivate:[gardGuard]},
+  {path:"filter",component:CategoryComponent,canActivate:[gardGuard]},
   {path:"admin",component:DashboardComponent,canActivate:[dashGuard]},
   {path:"edit",component:EditComponent,canActivate:[dashGuard]},
   {path:"admin/orders",component:OrdersAdminComponent,canActivate:[dashGuard]},

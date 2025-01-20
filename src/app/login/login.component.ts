@@ -28,7 +28,7 @@ onSubmit(data:NgForm){
       console.log(err);
     }
   })
-  console.log('data Submitted:', data.value); 
+  // console.log('data Submitted:', data.value); 
 }
 else{
   console.log('Form is invalid');

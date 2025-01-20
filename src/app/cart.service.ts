@@ -44,7 +44,7 @@ imgUrl='http://localhost:3000/'
     const headers=new HttpHeaders({
       Authorization: `Bearer ${token}`
     })
-     return this.http.post<any> (this.url+'/del',{headers})
+     return this.http.post<any> (this.url+'/del',data,{headers})
   }
   getadmin(): Observable <any> {
     let token=''

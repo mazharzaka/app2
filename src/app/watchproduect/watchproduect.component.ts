@@ -34,7 +34,7 @@ export class WatchproduectComponent {
     // console.log(id);
     console.log(this.Auth.decode().userId);
     const userId=this.Auth.decode().userId
-    this.Cart.Addtocart({produect:id,userid:userId,qty:1,status:true,received:false}).subscribe({
+    this.Cart.Addtocart({produect:id,userid:userId,qty:1,status:true}).subscribe({
       next: (data) => {
         console.log(data);
       },

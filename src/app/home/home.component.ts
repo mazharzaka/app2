@@ -37,7 +37,7 @@ export class HomeComponent  implements OnInit  {
     this.apiService.getData().subscribe(data=>{
       console.log(data);
       this.imgurl=this.apiService.imgUrl
-      this.arr=data
+      this.arr=data.filter(e=>e.Isdeleted!==true).slice(0,4)
     })
   }
 

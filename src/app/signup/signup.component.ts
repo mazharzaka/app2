@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent {
   user = {
-    username: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',

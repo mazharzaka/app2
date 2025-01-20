@@ -10,10 +10,10 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span> -->
-                <input type="text" #username="ngModel" name="username"   [(ngModel)]="user.username" required minlength="3" placeholder="Name" />
-                <div class="vaild" *ngIf="myForm.controls['username']?.invalid && myForm.controls['username']?.touched">
-                    <small *ngIf="myForm.controls['username']?.errors?.['required']">Username is required.</small>
-                    <small *ngIf="myForm.controls['username']?.errors?.['minlength']">Username must be at least 3 characters.</small>
+                <input type="text" #name="ngModel" name="name"   [(ngModel)]="user.name" required minlength="3" placeholder="Name" />
+                <div class="vaild" *ngIf="myForm.controls['name']?.invalid && myForm.controls['name']?.touched">
+                    <small *ngIf="myForm.controls['name']?.errors?.['required']">name is required.</small>
+                    <small *ngIf="myForm.controls['name']?.errors?.['minlength']">name must be at least 3 characters.</small>
                   </div>
                 <input type="email" #email="ngModel" name="email"  [(ngModel)]="user.email" required email placeholder="Email" />
                 <div class="vaild" *ngIf="myForm.controls['email']?.invalid && myForm.controls['email']?.touched">
@@ -25,7 +25,7 @@
                     <small *ngIf="myForm.controls['password']?.errors?.['required']">Password is required.</small>
                     <small *ngIf="myForm.controls['password']?.errors?.['minlength']">Password must be at least 6 characters.</small>
                   </div>
-                  <input id="confirmPassword" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="confirmPassword" required />
+                  <input id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="user.confirmPassword" placeholder="confirmPassword" required />
                   <div class="vaild" *ngIf="user.password !== user.confirmPassword && myForm.submitted">
                     <small>Passwords do not match.</small>
                   </div>

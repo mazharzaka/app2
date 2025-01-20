@@ -24,6 +24,7 @@ export class AddprodectComponent {
     let formData=new FormData();
     formData.append('name',data.value?.name);
     formData.append('desc',data.value?.desc);
+    formData.append('category',data.value?.price);
     formData.append('price',data.value?.price);
     formData.append('productImage',this.file);
     this.Auth.createProduct(formData).subscribe({
