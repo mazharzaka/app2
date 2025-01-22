@@ -1,0 +1,37 @@
+<section id="products">
+    <div class="prodects">
+      <div class="prod">
+        <div class="big">PRODUCTS</div>
+        <div class="sm">Our PRODUCTS</div>
+      </div>
+      <div class="contain">
+      <div class="container ml-1" *ngFor="let product of arr">
+        <div class="overlay">
+          <div class="items"></div>
+          <div class="items head">
+            <p>{{product.name}}</p>
+            <hr>
+          </div>
+          <div class="items price">
+            <!-- <p class="old">$699</p> -->
+            <p class="new">{{product.price}} $</p>
+          </div>
+          <div class="items cart">
+
+            <span *ngIf="!product.Isstock" (click)="addtocart(product._id)">ADD TO CART</span>
+            <span *ngIf="product.Isstock" class="text-red-500 text-xl"  (click)="addtocart(product._id)">OutOfStock</span>
+            <span (click)="Watch(product._id)" >WATCH PRODUECT</span>
+          </div>
+        </div>
+        <img [src]="imgurl+product.imgeURL" alt="Flower Embroidery Hoop Art" class="product-image">
+      </div></div>
+    </div>      
+        <!-- Sample Product Card -->
+     
+
+      <div class="All-pro">
+        <a href="/filter">All PRODUCTS</a>
+      </div>
+   
+
+  </section>

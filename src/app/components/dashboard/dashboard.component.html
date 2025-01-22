@@ -1,0 +1,61 @@
+<div class="cart-list">
+    <div class="cotain">
+      <div class="big">PRODUCTS</div>
+      <div class="wish">
+        PRODUCTS <span>[{{arr.length}}]</span>
+      </div>
+    </div>
+
+    <!-- If cart is empty -->
+    <!-- 
+    <div class="card-list">
+      <div>
+        <div class="big-icon hearty car">
+          <i class="fa fa-cart-arrow-down"></i>
+        </div>
+        <div class="no">Shopping Cart is Empty.</div>
+      </div>
+    </div>
+    -->
+
+    <!-- If cart contains items -->
+    <div class="card-list">
+      <table>
+        <thead class="titoftable">
+          <tr>
+            <th colspan="2">PRODUCT</th>
+            <th>PRICE</th>
+            <!-- <th>QUANTITY</th> -->
+            <!-- <th colspan="2">TOTAL</th> -->
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let p of arr">
+          <tr>
+            <td class="watch-pic">
+              <a>
+                <img class="sm-pic" [src]="imgurl+p.imgeURL" alt="Product Image">
+              </a>
+            </td>
+            <td class="tit-table">{{p.name}}</td>
+            <td class="price-table">{{p.price}}$</td>
+           
+            <td class="qty-table">
+                <span class="button mr-1 bg-yellow-600 hover:bg-yellow-950" (click)="edit(p._id)" >Edit</span>
+             <span class="button mr-1 bg-slate-950 hover:bg-blue-900 text-white" (click)="stock(p._id)" >stock</span>
+             <span class="button bg-red-600 hover:bg-red-950" (click)="dele(p._id)" >Delete</span>
+            </td>
+          </tr>
+          <!-- Add more products as needed -->
+        </tbody>
+      </table>
+      <div class="btns">
+        <div class="btn-cart">Update Cart</div>
+        <div class="btn-cart">
+          <a href="/" class="shopping">Continue Shopping</a>
+        </div>
+        <div  routerLink="/admin/addproduect" class="btn-cart">
+            Add Produect</div>
+      </div>
+    </div>
+  </div>

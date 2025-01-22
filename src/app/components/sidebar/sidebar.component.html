@@ -1,0 +1,85 @@
+<div class="z-10 bg-blue-600 relative">
+  <!-- Sidebar Toggle Button -->
+
+
+  <!-- Sidebar -->
+  <div
+    class="sidebar fixed top-20 bottom-0 lg:left-0 p-2  overflow-y-auto text-center bg-white transition-transform duration-300"
+    [ngClass]="{'w-[100px]': !isSidebarOpen,' border-r-2 border-blue-950':isSidebarOpen}"> <span class="absolute text-black text-4xl  z-10 left-4 cursor-pointer "
+      (click)="toggleSidebar()">
+      filter
+    </span>
+    <!-- Search Bar -->
+    <div class="p-2.5 flex items-center rounded-md px-4 duration-300 mt-14 border-2 border-blue-950 cursor-pointer bg-white text-blue-950"
+      [ngClass]="{ 'hidden': !isSidebarOpen }">
+      <i class="bi bi-search text-sm"></i>
+      <input type="text" placeholder="Search" class="text-[15px] ml-4 w-full bg-transparent focus:outline-none" />
+    </div>
+
+    <!-- Dropdown Button -->
+
+
+    <!-- Dropdown Menu -->
+    <div id="dropdownRadioBgHover" [ngClass]="{ 'hidden': !isSidebarOpen }"
+      class="z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+      <label class="w-full ms-2 text-2xl text-center  font-medium text-gray-900 rounded dark:text-gray-300">
+        category
+      </label>
+      <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioBgHoverButton">
+        <li *ngFor="let option of radioOptions; let i = index">
+          <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+            <input [id]="'radio-' + i" type="radio" (change)="updateSelectedOption(option.value)" [value]="option.value" name="default-radio"
+              [(ngModel)]="selectedOption"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+            <label [for]="'radio-' + i"
+              class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+              {{ option.label }}
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div id="dropdownRadioBgHover" [ngClass]="{ 'hidden': !isSidebarOpen }"
+      class="z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+      <label class="w-full ms-2 text-2xl text-center  font-medium text-gray-900 rounded dark:text-gray-300">
+        Stock
+      </label>
+      <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioBgHoverButton">
+        <li *ngFor="let st of Stock; let i = index">
+          <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+            <input [id]="'stock-radio-'+ i " (change)="updateselectedst(st.value)" type="radio" [value]="st.value" name="stock-radio" [(ngModel)]="selectedst"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+            <label [for]="'stock-radio-'+ i "
+              class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+              {{ st.label }}
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <label class="w-full ms-2 text-2xl text-center  font-medium text-gray-900 rounded dark:text-gray-300" 
+    [ngClass]="{ 'hidden': !isSidebarOpen }"
+    >
+      price
+    </label>
+    <div class="relative mb-6 p-7 "  [ngClass]="{ 'hidden': !isSidebarOpen }">
+      <label for="labels-range-input" class="sr-only">Labels range</label>
+      <input id="labels-range-input"  (change)="updatecurrentValueChange(currentValue)" type="range" [(ngModel)]="currentValue" [min]="minValue" [max]="maxValue"
+        class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+
+      <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">
+        Min (${{ minValue }})
+      </span>
+      <span
+        class="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">
+        ${{ currentValue }}
+      </span>
+  
+      <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">
+        Max (${{ maxValue }})
+      </span>
+    </div>
+
+   
+</div>

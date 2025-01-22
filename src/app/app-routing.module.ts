@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { CartComponent } from './cart/cart.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { gardGuard } from './gards/gard.guard';
-import { AddprodectComponent } from './addprodect/addprodect.component';
-import { EditComponent } from './edit/edit.component';
-import { dashGuard } from './gards/dash.guard';
-import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
-import { SalesComponent } from './sales/sales.component';
-import { UserorderComponent } from './userorder/userorder.component';
-import { WatchproduectComponent } from './watchproduect/watchproduect.component';
-import { CategoryComponent } from './category/category.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { CartComponent } from './components/cart/cart.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { gardGuard } from './guards/gard.guard';
+import { AddprodectComponent } from './components/addprodect/addprodect.component';
+import { EditComponent } from './components/edit/edit.component';
+import { dashGuard } from './guards/dash.guard';
+import { OrdersAdminComponent } from './components/orders-admin/orders-admin.component';
+import { SalesComponent } from './components/sales/sales.component';
+import { UserorderComponent } from './components/userorder/userorder.component';
+import { WatchproduectComponent } from './components/watchproduect/watchproduect.component';
+import { CategoryComponent } from './components/category/category.component';
 
 
 const routes: Routes = [

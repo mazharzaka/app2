@@ -1,0 +1,41 @@
+<app-sidebar 
+  (selectedOptionChange)="handleFilter($event, selectedstFromChild,selectedPriceFromChild)" 
+  (selectedstChange)="handleFilter(selectedOptionFromChild, $event,selectedPriceFromChild)"
+  (currentValueChange)="handleFilter(selectedOptionFromChild,selectedstFromChild,$event )" >
+</app-sidebar>
+<section id="products">
+    <div class="prodects">1
+      <div class="prod mb-4">
+        <div class="big">Collection</div>
+        <div class="sm">Our Collection {{selectedOptionFromChild}}</div>
+      </div>
+      <div class="contain">
+      <div class="container mr-2" *ngFor="let product of arr">
+        <div class="overlay">
+          <div class="items"></div>
+          <div class="items head">
+            <p>{{product.name}}</p>
+            <hr>
+          </div>
+          <div class="items price">
+            <!-- <p class="old">$699</p> -->
+            <p class="new">{{product.price}} $</p>
+          </div>
+          <div class="items cart">
+
+            <span (click)="addtocart(product._id)">ADD TO CART</span>
+            <span (click)="Watch(product._id)" >WATCH PRODUECT</span>
+          </div>
+        </div>
+        <img [src]="imgurl+product.imgeURL" alt="Flower Embroidery Hoop Art" class="product-image">
+      </div></div>
+    </div>      
+        <!-- Sample Product Card -->
+     
+
+      <div class="All-pro">
+        <a href="/filter">All PRODUCTS</a>
+      </div>
+   
+
+  </section>
