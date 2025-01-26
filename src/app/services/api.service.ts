@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LogService } from './log.service';
+import { Product } from '../models/Proudect.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ private url='http://localhost:3000/product'
 imgUrl='http://localhost:3000/'
   constructor(private http:HttpClient,private Token:LogService ) {  }
 
-  getData(): Observable <any[]> {
+  getData(): Observable <Product[]> {
     let token=''
     this.Token.getAcess().subscribe((user)=>{
       if(user){
@@ -21,9 +22,9 @@ imgUrl='http://localhost:3000/'
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     })
-  return this.http.get<any[]> (this.url,{headers})
+  return this.http.get<Product[]> (this.url,{headers})
 }
-delepro(data:any): Observable <any> {
+delepro(data:any): Observable <Product> {
   let token=''
   this.Token.getAcess().subscribe((user)=>{
     if(user){
@@ -34,9 +35,9 @@ delepro(data:any): Observable <any> {
     Authorization: `Bearer ${token}`
   })
   console.log(data);
-   return this.http.post<any> (this.url+'/del',data,{headers})
+   return this.http.post<Product> (this.url+'/del',data,{headers})
 }
-stock(data:any): Observable <any> {
+stock(data:any): Observable <Product> {
   let token=''
   this.Token.getAcess().subscribe((user)=>{
     if(user){
@@ -60,9 +61,9 @@ editpro(data:any): Observable <any> {
     Authorization: `Bearer ${token}`
   })
   console.log(data);
-  return this.http.post<any> (this.url+'/edit',data,{headers})
+  return this.http.post<Product> (this.url+'/edit',data,{headers})
 }
-details(data:any): Observable <any> {
+details(data:any): Observable <Product> {
   let token=''
   this.Token.getAcess().subscribe((user)=>{
     if(user){
@@ -73,6 +74,6 @@ details(data:any): Observable <any> {
     Authorization: `Bearer ${token}`
   })
   console.log(data);
-  return this.http.post<any> (this.url+'/one',data,{headers})
+  return this.http.post<Product> (this.url+'/one',data,{headers})
 }
 }

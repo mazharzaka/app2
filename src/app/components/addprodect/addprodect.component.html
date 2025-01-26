@@ -3,14 +3,26 @@
 
         <div class="form-container sign-in-container">
             <!-- #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" -->
-            <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)"> 
+            <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
                 <h1>add prodects</h1>
-                
+
                 <input type="text" #username="ngModel" name="name" ngModel placeholder="Name" />
                 <input type="text" #desc="ngModel" name="desc" ngModel placeholder="description" />
-                <input type="text" #desc="ngModel" name="category" ngModel placeholder="category" />
+
+                <!-- <form class="max-w-sm mx-auto"></form> -->
+                    
+                    <select  #category="ngModel" name="category" ngModel id="countries" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <!-- <option selected>Choose countries</option> -->
+                        <option  *ngFor="let op of options" [value]="op.name">{{op.name}}</option>
+                 
+                      
+                    </select>
+                
+
                 <input type="number" #price="ngModel" name="price" ngModel placeholder="Price" />
-                <input type="file" #productImage="ngModel" name="productImage" (change)="filechange($event)" ngModel accept="image/*" />
+                <input type="file" #productImage="ngModel" name="productImage" (change)="filechange($event)" ngModel
+                    accept="image/*" />
 
                 <button type="submit">add produect</button>
             </form>

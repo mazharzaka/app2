@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LogService } from '../../services/log.service';
 import { CartService } from '../../services/cart.service';
+import { Order } from '../../models/Order.model';
 
 @Component({
   selector: 'app-userorder',
@@ -19,8 +20,11 @@ const userId=this.Auth.decode().userId
   this.Cart.getcart({userid:userId}).subscribe( {
       next: (data) => {
         this.imgurl=this.Cart.imgUrl
-        this.arr=data.filter((e:any) => e.received ===true);
-        // console.log(data);
+        if (Array.isArray(data)) {
+          this.arr = data.filter((e: Order) => e.received === true);
+        } else {
+          console.error('Data is not an array:', data);
+        }
         
       },
       error: (err) => {

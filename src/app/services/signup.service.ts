@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SignupService {
   url="http://localhost:3000/user";
   constructor(private http:HttpClient) { }
-  createUser(data:any):Observable<any>{
-    return this.http.post<any>(this.url,data).pipe();
+  createUser(data:any):Observable<User>{
+    return this.http.post<User>(this.url,data).pipe();
   }
 }

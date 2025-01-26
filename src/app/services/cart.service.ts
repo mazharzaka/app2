@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { data } from 'jquery';
 import { Observable } from 'rxjs';
 import { LogService } from './log.service';
+import { Order } from '../models/Order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ url="http://localhost:3000/order";
 imgUrl='http://localhost:3000/'
 
   constructor(private http:HttpClient,private Auth:LogService) { }
-  Addtocart(data:any):Observable<any>{
+  Addtocart(data:any):Observable<Order>{
     console.log(data);
     let token=''
     this.Auth.getAcess().subscribe(data=>{
@@ -22,9 +23,9 @@ imgUrl='http://localhost:3000/'
     const headers=new HttpHeaders({
       Authorization: `Bearer ${token}`
     })
-    return this.http.post<any>(this.url,data,{headers})
+    return this.http.post<Order>(this.url,data,{headers})
   }
-  getcart(data:any):Observable<any>{
+  getcart(data:any):Observable<Order>{
     let token=''
     this.Auth.getAcess().subscribe(data=>{
 
@@ -33,9 +34,9 @@ imgUrl='http://localhost:3000/'
     const headers=new HttpHeaders({
       Authorization: `Bearer ${token}`
     })
-    return this.http.post<any>(this.url+'/cart',data,{headers})
+    return this.http.post<Order>(this.url+'/cart',data,{headers})
   }
-  deleorder(data:any): Observable <any> {
+  deleorder(data:any): Observable <Order> {
     let token=''
     this.Auth.getAcess().subscribe(data=>{
 
@@ -44,9 +45,9 @@ imgUrl='http://localhost:3000/'
     const headers=new HttpHeaders({
       Authorization: `Bearer ${token}`
     })
-     return this.http.post<any> (this.url+'/del',data,{headers})
+     return this.http.post<Order> (this.url+'/del',data,{headers})
   }
-  getadmin(): Observable <any> {
+  getadmin(): Observable <Order> {
     let token=''
     this.Auth.getAcess().subscribe(data=>{
 
@@ -59,7 +60,7 @@ imgUrl='http://localhost:3000/'
     return this.http.get<any> (this.url+'/admin' ,{headers})
 
   }
-  staus(data:any):Observable<any>{
+  staus(data:any):Observable<Order>{
     let token=''
     this.Auth.getAcess().subscribe(data=>{
 
@@ -68,9 +69,9 @@ imgUrl='http://localhost:3000/'
     const headers=new HttpHeaders({
       Authorization: `Bearer ${token}`
     })
-   return this.http.post<any>(this.url+'/update',data ,{headers})
+   return this.http.post<Order>(this.url+'/update',data ,{headers})
   }
-  received(data:any):Observable<any>{
+  qty(data:any):Observable<Order>{
     let token=''
     this.Auth.getAcess().subscribe(data=>{
 
@@ -79,6 +80,17 @@ imgUrl='http://localhost:3000/'
     const headers=new HttpHeaders({
       Authorization: `Bearer ${token}`
     })
-    return this.http.post<any>(this.url+'/received',data,{headers})
+   return this.http.post<Order>(this.url+'/qty',data ,{headers})
+  }
+  received(data:any):Observable<Order>{
+    let token=''
+    this.Auth.getAcess().subscribe(data=>{
+
+      if(data){token=data}
+    })
+    const headers=new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    })
+    return this.http.post<Order>(this.url+'/received',data,{headers})
    }
 }

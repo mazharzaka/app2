@@ -19,7 +19,7 @@
           <div class="items cart">
 
             <span *ngIf="!product.Isstock" (click)="addtocart(product._id)">ADD TO CART</span>
-            <span *ngIf="product.Isstock" class="text-red-500 text-xl"  (click)="addtocart(product._id)">OutOfStock</span>
+            <span *ngIf="product.Isstock" class="text-red-500 text-xl">OutOfStock</span>
             <span (click)="Watch(product._id)" >WATCH PRODUECT</span>
           </div>
         </div>

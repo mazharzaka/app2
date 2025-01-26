@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AddproduectService } from '../../services/addproduect.service';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-addprodect',
@@ -11,7 +12,20 @@ import { Router } from '@angular/router';
   styleUrl: './addprodect.component.css'
 })
 export class AddprodectComponent {
-  constructor(private Auth:AddproduectService,private router:Router) { }
+  constructor(private Auth:AddproduectService,private category:CategoryService,private router:Router) { }
+  options:any[]=[];
+  ngOnInit(): void{
+    this.category.getCategories().subscribe({
+      next: (data) => {
+        this.options=data;
+        // console.log('Categories:', data);
+        
+      },
+      error: (err) => {
+        console.error('Error fetching categories:', err);
+        }
+      });
+  }
   file:any;
   filechange(event:any){
     if(event.target.files.length>0){

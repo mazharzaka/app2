@@ -16,21 +16,25 @@ export class CategoryComponent {
   private originalArr: any[] = [];
     imgurl=''
     selectedOptionFromChild: string = '';
-    selectedPriceFromChild: number = 1000;
+    selectedPriceFromChild: number = 4000;
     selectedstFromChild: boolean | undefined=undefined;
     ngOnInit(): void {
       this.apiService.getData().subscribe(data => {
         this.imgurl = this.apiService.imgUrl;
         this.originalArr = data.filter(e => e.Isdeleted !== true);
         this.arr = [...this.originalArr];
+        // Refresh data on success
+
+        console.log('Data:', data); 
+        
       });
     }
     constructor(private apiService:ApiService,private Auth:LogService,private Cart:CartService,private route:Router){}
     handleFilter(option: string, isStockOption: boolean|undefined,price:number): void {
       this.selectedOptionFromChild = option;
       this.selectedstFromChild = isStockOption;
-    this.selectedPriceFromChild=price
-      console.log('Selected Option from Sidebar:', this.selectedOptionFromChild);
+      this.selectedPriceFromChild=price
+      console.log('Selected Option from Sidebar:', this.selectedOptionFromChild===this.originalArr[4].category);
       console.log('Selected Stock Option:', this.selectedstFromChild);
       console.log('Selected Stock Option:', this.selectedPriceFromChild);
     
@@ -38,6 +42,8 @@ export class CategoryComponent {
         const categoryMatch = 
           this.selectedOptionFromChild === '' || 
           this.selectedOptionFromChild === 'All' || 
+          // console.log(e.category === this.selectedOptionFromChild);
+        
           e.category === this.selectedOptionFromChild;
     
         const stockMatch = 

@@ -76,7 +76,7 @@ margin-bottom: 15px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2fr 2fr 1fr;
-  background: rgba(77, 77, 77, .9);
+  background: hwb(238deg 11% 52% / 80%);
   color: #FEF5DF;
   opacity: 0;
   transition: all 0.5s;
