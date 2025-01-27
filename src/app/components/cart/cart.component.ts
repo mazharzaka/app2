@@ -14,7 +14,7 @@ import { Order } from '../../models/Order.model';
 export class CartComponent {
 constructor(private Auth:LogService,private Cart:CartService){}
   arr:any[]=[]
-    imgurl=''
+   imgurl=''
  ngOnInit(): void{
 const userId=this.Auth.decode().userId
 
@@ -22,12 +22,15 @@ const userId=this.Auth.decode().userId
       next: (data) => {
         this.imgurl=this.Cart.imgUrl
         if (Array.isArray(data)) {
-          this.arr = data.filter((e: Order) => e.Isdeleted !== true);
+          this.arr=data.filter((e: Order) => e.userid === userId)[0].cartItem
+          console.log(this.arr);
+          
+       ;
         } else {
           console.error('Expected data to be an array');
         }
 
-        console.log(data);
+        // console.log(data);
         
       },
       error: (err) => {

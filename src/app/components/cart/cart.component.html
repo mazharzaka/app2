@@ -30,37 +30,39 @@
             <th></th>
           </tr>
         </thead>
-        <tbody><ng-container *ngFor="let p of arr">
+        <tbody>
+          <ng-container *ngFor="let p of arr">
           <tr [ngClass]="{'active':!p.status&&p.received}" >
             <td class="watch-pic">
               <a>
-                <img class="sm-pic" [src]="imgurl+p.produect.imgeURL" alt="Product Image">
+                <img class="sm-pic" [src]="imgurl+p.productId.imgeURL" alt="Product Image">
               </a>
             </td>
-            <td class="tit-table">{{p.produect.name}}</td>
-            <td class="price-table">{{p.produect.price}}$</td>
+            <td class="tit-table">{{p.productId.name}}</td>
+            <td class="price-table">{{p.productId.price}}$</td>
             <td class="qty-table">
               <div class="quantity-control">
                 
 <form class="max-w-28 mx-auto">
   <!-- <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a number:</label> -->
-  <input #numberInput (change)="editqty(numberInput.value,p._id)" [value]="p.qty" min="1" type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" required />
+  <input #numberInput (change)="editqty(numberInput.value,p._id)" [value]="p.productId.qty" min="1" type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" required />
 </form>
 
               </div>
             </td>
-            <td class="price-table" colspan="2">{{p.produect.price*p.qty}}$</td>
-            <!-- <td class="price-table" *ngIf="!p.status" colspan="1">{{p.produect.price*p.qty}}$</td> -->
-            <td class="qty-table" *ngIf="p.status">
+            <td class="price-table" colspan="2">{{p.productId.price*p.qty}}$</td>
+            <!-- <td class="price-table" *ngIf="!p.status" colspan="1">{{p.productId.price*p.qty}}$</td> -->
+            <td class="qty-table" *ngIf="!p.status">
               <span class="button" (click)="dele(p._id)"  >Delete</span>
             </td>
-            <td class="qty-table" colspan="1" *ngIf="!p.status&&!p.received">
+            <td class="qty-table" colspan="1" *ngIf="p.status&&!p.received">
               <span class="deli" >Product in delivery stage</span>
             </td>
-            <td class="qty-table" colspan="1" *ngIf="!p.status&&p.received">
+            <td class="qty-table" colspan="1" *ngIf="p.status&&p.received">
               <span class="received" >Product is received</span>
             </td>
-          </tr></ng-container>
+          </tr>
+        </ng-container>
           <!-- Add more product +s(click)="dele(p._id)" as needed -->
         </tbody>
       </table>
