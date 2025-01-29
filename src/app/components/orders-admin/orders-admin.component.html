@@ -31,25 +31,30 @@
           </tr>
         </thead>
         <tbody >
-          <ng-container *ngFor="let p of arr" >
-          <tr *ngIf="!p.received" [ngClass]="{'active': !p.status}" >
-              <td class="watch-pic" >
+          <ng-container *ngFor="let p of arr" >          
+             <!-- <ng-container ></ng-container>> </ng-container> -->
+          <ng-container class="flex" *ngIf="!p.received">
+            <tr *ngFor="let item of p.cartItem" [ngClass]="{'active':p.status}">
+ 
+            <td class="watch-pic" >
                 <!-- -->
-                <img class="sm-pic" [src]="imgurl+p.produect.imgeURL"  alt="Product Image">
+                <img class="sm-pic" [src]="imgurl+item.productId.imgeURL"  alt="Product Image">
               <a>
               </a>
             </td>
-            <td class="tit-table">{{p.produect.name}}</td>
-            <td class="price-table">{{p.produect.price}}</td>
+            <td class="tit-table">{{item.productId.name}}</td>
+            <td class="price-table">{{item.productId.price}}</td>
             <td class="qty-table">
               <div class="quantity-control">
                 <!-- <button class="decrement">-</button> -->
-                {{ p.qty}}
+                {{item.qty}}
                 <!-- <input type="number" class="input" [value]="" min="0" max="9"> -->
                 <!-- <button class="increment">+</button> -->
               </div>
             </td>
-            <td class="price-table" colspan="2">{{p.produect.price*p.qty}}$</td>
+            <td class="price-table" colspan="2">{{item.productId.price*item.qty}}$</td>
+         
+      
             <td class="qty-table">
               <div>
               <div class="name"> Username: {{p.userid.name}}</div>
@@ -62,9 +67,10 @@
               <span class="button received" *ngIf="!p.status" (click)="received(p._id)" >received</span>
 
               <!-- <span class="button d"  >details</span> -->
-            </td>
             <!-- <div>dufgus</div> -->
-          </tr>
+            </tr>
+            <hr>
+          </ng-container>
           </ng-container>
           <!-- Add more product +s(click)="dele(p._id)" as needed -->
         </tbody>
@@ -73,6 +79,7 @@
         <div class="btn-cart" routerLink="/admin/sales">Sales</div>
         <!-- <div routerLink="/" class="btn-cart">
           <a class="shopping"></a>
+          
         </div> -->
         <!-- <div class="btn-cart">Clear Cart</div> -->
       </div>

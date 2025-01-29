@@ -22,7 +22,7 @@ const userId=this.Auth.decode().userId
       next: (data) => {
         this.imgurl=this.Cart.imgUrl
         if (Array.isArray(data)) {
-          this.arr=data.filter((e: Order) => e.userid === userId)[0].cartItem
+          this.arr=data.filter((e: Order) => e.userid === userId)[0].cartItem.filter((e:any)=>e.Isdeleted!==true)
           console.log(this.arr);
           
        ;
@@ -41,8 +41,9 @@ const userId=this.Auth.decode().userId
 }
 dele(data:any){
   console.log(data);
+const userId=this.Auth.decode().userId
   
-  this.Cart.deleorder({data}).subscribe({
+  this.Cart.deleorder({productId:data,userid:userId}).subscribe({
     next: (response) => {
       this.ngOnInit(); // Refresh data on success
       console.log('Deletion successful:', response);
@@ -54,7 +55,9 @@ dele(data:any){
   
 }  
 editqty(value:string,data:any){
-  this.Cart.qty({id:data,qty:value}).subscribe({
+const userId=this.Auth.decode().userId
+
+  this.Cart.qty({productId:data,userid:userId,qty:value}).subscribe({
     next: (response) => {
       this.ngOnInit(); // Refresh data on success
       console.log('Deletion successful:', response);

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { Order } from '../../models/Order.model';
 
 @Component({
   selector: 'app-orders-admin',
@@ -19,6 +20,7 @@ this._http.getadmin().subscribe({
     this.imgurl=this._http.imgUrl
 
     this.arr=data
+   
   },
   error:(err)=>{
 console.log(err);
