@@ -7,14 +7,15 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class LogService {
-
+  private token:BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
+  public currentUser$: Observable<any | null> 
   constructor(private http:HttpClient) {
     const token = localStorage.getItem('token');
     if(token){
       this.token.next(token);
     }
+    this.currentUser$ = this.token.asObservable();
    }
-  private token:BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
   login(data:any): Observable<any> {
     // console.log(data);
     
@@ -23,6 +24,7 @@ export class LogService {
         localStorage.setItem('token',res.accessToken);
         // console.log(res.accessToken);
         this.token.next(res.accessToken);
+        // this.currentUser.next(user);
       })
     );
   }

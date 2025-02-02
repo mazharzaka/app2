@@ -2,7 +2,7 @@
     <div class="cotain">
       <div class="big">Cart</div>
       <div class="wish">
-        Cart <span>[{{arr.length}}]</span>
+        Cart <span>[{{length}}]</span>
       </div>
     </div>
 
@@ -32,7 +32,7 @@
         </thead>
         <tbody>
           <ng-container *ngFor="let p of arr">
-          <tr [ngClass]="{'active':!p.status&&p.received}" >
+          <tr *ngIf="!p.received" >
             <td class="watch-pic">
               <a>
                 <img class="sm-pic" [src]="imgurl+p.productId.imgeURL" alt="Product Image">
@@ -52,22 +52,32 @@
             </td>
             <td class="price-table" colspan="2">{{p.productId.price*p.qty}}$</td>
             <!-- <td class="price-table" *ngIf="!p.status" colspan="1">{{p.productId.price*p.qty}}$</td> -->
+             <ng-container *ngIf="!p.CheckOut">
             <td class="qty-table" *ngIf="p.status">
               <span class="button" (click)="dele(p.productId)"  >Delete</span>
-            </td>
-            <td class="qty-table" colspan="1" *ngIf="!p.status&&!p.received">
+            </td></ng-container>
+            <ng-container *ngIf="p.CheckOut">
+              <td class="qty-table " *ngIf="p.status==='Pending'">
+
+                <div class="text-2xl text-cyan-800 " >pending</div>
+                <div class="button " (click)="dele(p.productId)"  >Cancle</div>
+
+              </td>
+            <td class="qty-table" colspan="1" *ngIf="p.status==='Accepted'">
               <span class="deli" >Product in delivery stage</span>
             </td>
-            <td class="qty-table" colspan="1" *ngIf="!p.status&&p.received">
+            <td class="qty-table" colspan="1" *ngIf="p.status==='Delivered'">
               <span class="received" >Product is received</span>
-            </td>
+            </td></ng-container>
           </tr>
         </ng-container>
+
           <!-- Add more product +s(click)="dele(p._id)" as needed -->
         </tbody>
       </table>
       <div class="btns">
         <div class="btn-cart" routerLink="/UpdateCart">Orders</div>
+        <div class="btn-cart" (click)="check()" >CheckOut</div>
         <div routerLink="/" class="btn-cart">
           <a class="shopping">Continue Shopping</a>
         </div>

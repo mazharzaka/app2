@@ -22,7 +22,9 @@ import { UserorderComponent } from './components/userorder/userorder.component';
 import { WatchproduectComponent } from './components/watchproduect/watchproduect.component';
 import { CategoryComponent } from './components/category/category.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     AppRoutingModule ,
     HttpClientModule ,
     SlickCarouselModule ,
-    FormsModule
+    CommonModule,
+    FormsModule,
+    BrowserAnimationsModule, // Required for animations
+    ToastrModule.forRoot({
+     
+      // positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }), 
   ],
   providers: [],
   bootstrap: [AppComponent]

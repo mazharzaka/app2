@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { LogService } from '../../services/log.service';
 import { Order } from '../../models/Order.model';
+import { ToastrService } from 'ngx-toastr';
 // import { ApiService } from '../api.service';
 
 @Component({
@@ -12,18 +13,23 @@ import { Order } from '../../models/Order.model';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-constructor(private Auth:LogService,private Cart:CartService){}
+constructor(private Auth:LogService,private toastr: ToastrService,private Cart:CartService){}
   arr:any[]=[]
-   imgurl=''
+  imgurl='http://localhost:3000/'
+   length:number=0
+   checkOut=false
  ngOnInit(): void{
 const userId=this.Auth.decode().userId
 
   this.Cart.getcart({userid:userId}).subscribe( {
       next: (data) => {
-        this.imgurl=this.Cart.imgUrl
+
         if (Array.isArray(data)) {
-          this.arr=data.filter((e: Order) => e.userid === userId)[0].cartItem.filter((e:any)=>e.Isdeleted!==true)
-          console.log(this.arr);
+          this.arr=data[0]?.cartItem.filter((e:any)=>e.Isdeleted!==true)
+          this.length = this.arr.reduce((a, b) => a + b.qty, 0)
+
+// console.log(this.arr.);
+
           
        ;
         } else {
@@ -47,6 +53,8 @@ const userId=this.Auth.decode().userId
     next: (response) => {
       this.ngOnInit(); // Refresh data on success
       console.log('Deletion successful:', response);
+      this.toastr.success('Deletion successful!', 'Success');
+
     },
     error: (err) => {
       console.error('Error during deletion:', err);
@@ -66,7 +74,22 @@ const userId=this.Auth.decode().userId
       console.error('Error during deletion:', err);
     },
   });
-  
-  
 }
+check(){
+  const userId=this.Auth.decode().userId
+
+  console.log(userId);  
+  this.Cart.Check({userid:userId}).subscribe({
+    next:()=>{
+      this.ngOnInit()
+      this.toastr.success('checkout successful!', 'Success');
+      // this.checkOut=true
+    },
+    error:()=>{
+      console.log("err");
+      this.checkOut=false
+
+    }
+  })
+  }
 }

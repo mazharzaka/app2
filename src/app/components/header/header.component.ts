@@ -1,64 +1,75 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { LogService } from '../../services/log.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { Order } from '../../models/Order.model';
-// import { ApiService } from '../../services/api.service';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   standalone: false,
-
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   login = false;
   Isuser = true;
-  arr: any[] = []
+  arr: any[] = [];
+  length: number = 0;
+  private subscriptions: Subscription = new Subscription();
 
-  length: number = 0
-  constructor(private Auth: LogService, private router: Router, private Cart: CartService, private cdr: ChangeDetectorRef) { }
+  constructor(private Auth: LogService, private router: Router,private cdr:ChangeDetectorRef , private Cart: CartService) {}
+
   ngOnInit(): void {
-    const userId = this.Auth.decode().userId
-
-    this.Auth.getAcess().subscribe({
+    const userId = this.Auth.decode()?.userId;
+    this.Auth.currentUser$.subscribe((user) => {
+      this.login = !!user;
+      this.Isuser = this.Auth.decode()?.userType === 'user' ? true : false
+    });
+    const authSub = this.Auth.getAcess().pipe(take(1)).subscribe({
       next: (data) => {
         if (data) {
           this.login = true;
-          this.Isuser = this.Auth.decode().userType === 'user' ? true : false
+          this.Isuser = this.Auth.decode()?.userType === 'user' ? true : false
 
         }
         else {
           this.login = false;
         }
+        console.log('Login status:', this.login);
+        
+        this.cdr.detectChanges();
+        
       }
-    })
-    this.Cart.getcart({ userid: userId }).subscribe( {
-      // console.log(data);
+    });
+    this.subscriptions.add(authSub);
+
+    const cartSub = this.Cart.getcart({ userid: userId }).pipe(take(1)).subscribe({
       next: (data) => {
-        if (Array.isArray(data)) {
-          this.arr = data.filter((e: Order) => e.Isdeleted !== true);
+        if (Array.isArray(data) && data.length > 0 && data[0]?.cartItem) {
+          this.arr = data[0].cartItem.filter((e: any) => e.Isdeleted !== true);
+          this.length = this.arr.reduce((a, b) => a + (b.qty || 0), 0);
         } else {
-          console.error('Expected data to be an array');
+          console.warn('Expected data to be a non-empty array with cartItem');
         }
-
-        this.length = this.arr.reduce((a, b) => a + b.qty, 0)
-        this.ngOnInit(); // Refresh data on success
-
       },
       error: (err) => {
-        console.error('Error during deletion:', err);
-      },
-
-    })
+        console.error('Error fetching cart data:', err);
+      }
+    });
+    this.subscriptions.add(cartSub);
+    this.cdr.detectChanges();
   }
+
   logout() {
     this.Auth.logout();
     this.router.navigate(['login']);
     this.login = false;
+    // this.cdr.detectChanges();
   }
 
-
-
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

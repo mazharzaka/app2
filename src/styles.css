@@ -14,3 +14,14 @@ body {
     box-sizing: border-box;
     scroll-behavior: smooth;
   }
+  .toast-container {
+    z-index: 99999 !important;
+    position: fixed !important;
+    top: 10px !important;
+    right: 10px !important;
+  }
+  .toast {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  

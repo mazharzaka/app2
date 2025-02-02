@@ -2,13 +2,13 @@
     <div class="cotain">
       <div class="big">Orders</div>
       <div class="wish">
-        Orders <span>[{{arr.length}}]</span>
+        Orders 
       </div>
     </div>
 
     <!-- If cart is empty -->
     
-    <div class="card-list" *ngIf="arr.length===0">
+    <!-- <div class="card-list" >
       <div>
         <div class="big-icon hearty car">
           <i class="fa fa-cart-arrow-down"></i>
@@ -16,59 +16,69 @@
         <div class="no">There are no orders.</div>
       </div>
     </div>
-   
+    -->
 
     <!-- If cart contains items -->
-    <div class="card-list" *ngIf="arr.length>0 ">
+    <div class="card-list" >
       <table>
         <thead class="titoftable">
           <tr>
             <th colspan="2">PRODUCT</th>
-            <th>PRICE</th>
+            <th>TOTAL</th>
             <th>QUANTITY</th>
-            <th colspan="2">TOTAL</th>
-            <th></th>
+            <!-- <th>ADDRESS</th> -->
+            <th colspan="2">STATUS</th>
           </tr>
         </thead>
-        <tbody >
-          <ng-container *ngFor="let p of arr" >          
-             <!-- <ng-container ></ng-container>> </ng-container> -->
-          <ng-container class="flex" *ngIf="!p.received">
-            <tr *ngFor="let item of p.cartItem" [ngClass]="{'active':p.status}">
+        <tbody *ngFor="let p of arr">
+          <ng-container *ngIf="!p.received">          
+             <!-- > </ng-container> -->
+          <ng-container class="flex" >
+          <ng-container >
+            <tr  [ngClass]="{'active':p.status}">
  
             <td class="watch-pic" >
                 <!-- -->
-                <img class="sm-pic" [src]="imgurl+item.productId.imgeURL"  alt="Product Image">
-              <a>
-              </a>
+                <img class="sm-pic" src="imgs/pngwing.com.png"  alt="Product Image">
+            
             </td>
-            <td class="tit-table">{{item.productId.name}}</td>
-            <td class="price-table">{{item.productId.price}}</td>
-            <td class="qty-table">
-              <div class="quantity-control">
-                <!-- <button class="decrement">-</button> -->
-                {{item.qty}}
-                <!-- <input type="number" class="input" [value]="" min="0" max="9"> -->
-                <!-- <button class="increment">+</button> -->
-              </div>
-            </td>
-            <td class="price-table" colspan="2">{{item.productId.price*item.qty}}$</td>
+            <td class="tit-table">  <div *ngFor="let item of filteredItems">
+              {{ item.productId.name }}({{item.qty}})
+            </div></td>
+            <td class="price-table">{{total}}$</td>
+           
+            <!-- <td class="price-table" colspan="2">{{item.productId.price*item.qty}}$</td> -->
          
       
-            <td class="qty-table">
+            <!-- <td class="qty-table">
               <div>
               <div class="name"> Username: {{p.userid.name}}</div>
                  <div class="email">Email:{{p.userid.email}}</div>
                <div class="phone"> Phone: {{p.userid.phone}}</div>
                <div class="add"> Address: {{p.userid.address}}</div>
               </div>
-              <span class="button" *ngIf="p.status" (click)="delivery(p._id)" >delivery</span>
-              <span class="button" *ngIf="!p.status" (click)="delivery(p._id)" >undelivery</span>
-              <span class="button received" *ngIf="!p.status" (click)="received(p._id)" >received</span>
-
-              <!-- <span class="button d"  >details</span> -->
-            <!-- <div>dufgus</div> -->
-            </tr>
+              </td> -->
+              <td >
+                <div class="text-center">
+                <div class="name"> Username: {{p.userid.name}}</div>
+                   <div class="email">Email:{{p.userid.email}}</div>
+                 <div class="phone"> Phone: {{p.userid.phone}}</div>
+                 <div class="add"> Address: {{p.userid.address}}</div>
+                </div>
+                </td>
+              <td>
+                <form class="max-w-sm mx-auto" >
+                  <!-- <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label> -->
+                  <select id="countries" [(ngModel)]="status" name="status" (change)="onStatusChange($event,p.userid)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" disabled selected>Choose a Status</option>
+                    <option value="Pending" selected>Pending</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                </form>
+                </td>
+            </tr></ng-container>
             <hr>
           </ng-container>
           </ng-container>
