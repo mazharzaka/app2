@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LogService } from '../../services/log.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
     email: '',
     password: '',
   };
-  constructor(private Auth:LogService,private router:Router) { }
+  constructor(private Auth:LogService,private toastr: ToastrService,private router:Router) { }
 onSubmit(data:NgForm){
   if (data.valid) {
   this.Auth.login(data.value).subscribe({
@@ -26,12 +27,15 @@ onSubmit(data:NgForm){
     },
     error: (err) => {
       console.log(err);
+  this.toastr.error('username or password is wrong.', 'Error');
+
     }
   })
   // console.log('data Submitted:', data.value); 
 }
 else{
-  console.log('Form is invalid');
+  this.toastr.error('Form is invalid.', 'Error');
+
   
 }
 }

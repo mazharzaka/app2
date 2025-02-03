@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { LogService } from '../../services/log.service';
 import { CartService } from '../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-watchproduect',
@@ -12,7 +13,7 @@ import { CartService } from '../../services/cart.service';
   styleUrl: './watchproduect.component.css'
 })
 export class WatchproduectComponent {
-  constructor(private route: ActivatedRoute,private Api : ApiService,private Auth:LogService,private Cart:CartService ) { }
+  constructor(private route: ActivatedRoute,private toastr: ToastrService,private Api : ApiService,private Auth:LogService,private Cart:CartService ) { }
   productId: any;
   product: any
   imgurl=''
@@ -34,13 +35,19 @@ export class WatchproduectComponent {
     // console.log(id);
     console.log(this.Auth.decode().userId);
     const userId=this.Auth.decode().userId
-    this.Cart.Addtocart({produect:id,userid:userId,qty:1,status:true,received:false}).subscribe({
-      next: (data) => {
-        console.log(data);
+    this.Cart.Addtocart({ 
+      productId: id, 
+      userid: userId, 
+      qty: 1, 
+    
+    }).subscribe({
+      next: (response) => {
+        this.toastr.success('Item added to cart successfully!', 'Success');
+        // console.log('Addition successful', this.toastr);
       },
       error: (err) => {
-        console.log(err);
+        this.toastr.error('Failed to add item to cart. Please try again.', 'Error');
+        console.error('Error adding to cart:', err);
       }
     });
-    }
-}
+  }}

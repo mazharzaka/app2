@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SignupService } from '../../services/signup.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,7 @@ export class SignupComponent {
     phone: '',
     userType:''
   };
-  constructor(private Auth:SignupService,private router:Router) { }
+  constructor(private Auth:SignupService,private toastr: ToastrService,private router:Router) { }
   onSubmit(data:NgForm){
     if (data.valid) {
     this.Auth.createUser(data.value).subscribe({
@@ -28,11 +29,14 @@ export class SignupComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.log(err);
+        this.toastr.error('register is wrong.', 'Error');
+
       }
     })}
     else {
       console.log('Form is invalid');
+      this.toastr.error('Form is invalid.', 'Error');
+
     }
 
     // console.log('data Submitted:', data.value);

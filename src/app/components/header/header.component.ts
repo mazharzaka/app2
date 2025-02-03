@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.Auth.currentUser$.subscribe((user) => {
       this.login = !!user;
       this.Isuser = this.Auth.decode()?.userType === 'user' ? true : false
+      this.length = this.arr?.reduce((a, b) => a + (b.qty || 0), 0);
+
     });
     const authSub = this.Auth.getAcess().pipe(take(1)).subscribe({
       next: (data) => {

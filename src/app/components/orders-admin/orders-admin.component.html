@@ -19,8 +19,8 @@
     -->
 
     <!-- If cart contains items -->
-    <div class="card-list" >
-      <table>
+    <div class="card-list"  >
+      <table *ngIf="filteredItems.length!==0" class="table">
         <thead class="titoftable">
           <tr>
             <th colspan="2">PRODUCT</th>

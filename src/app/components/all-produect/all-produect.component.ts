@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AllProduectComponent {
   arr:any[]=[]
-    imgurl=''
+  imgurl=''
 
 constructor(private apiService:ApiService,private toastr: ToastrService,private Auth:LogService,private Cart:CartService,private route:Router){}
   ngOnInit(): void {

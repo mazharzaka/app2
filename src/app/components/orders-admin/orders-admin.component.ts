@@ -25,7 +25,11 @@ this._http.getadmin().subscribe({
     this.imgurl=this._http.imgUrl
 
     this.arr=data
+  
    this.filteredItems= data[0]?.cartItem.filter(((item:any) => !item.Isdeleted && item.CheckOut))
+   console.log();
+   
+   this.status=this.filteredItems[0]?.status
    this.total=this.filteredItems.reduce((a:any,b:any)=>a+b.qty*b.productId.price,0)
   },
   error:(err)=>{

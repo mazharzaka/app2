@@ -16,13 +16,15 @@
       <li class="item" *ngIf="login"><a routerLink="/login" (click)="logout()" class="home-na">logout</a></li>
       <li class="item" *ngIf="!login"><a routerLink="/login"  class="home-na">login</a></li>
     
-    <div class="icons" *ngIf="Isuser">
+    <div class="icons flex"  *ngIf="Isuser">
      
       <!-- <a href="#quick" class="item cart"></a> -->
         <li class="item"><a routerLink="/cart" class="home-na">Cart</a>
           <span class="length">[{{length}}]</span>
         </li>
-      
+        <li class="item"><a routerLink="/cart" class="home-na">MyOrders</a>
+          <span class="length">[{{length}}]</span>
+        </li>
     </div>
   </div>
 </div>

@@ -25,10 +25,10 @@ const userId=this.Auth.decode().userId
       next: (data) => {
 
         if (Array.isArray(data)) {
-          this.arr=data[0]?.cartItem.filter((e:any)=>e.Isdeleted!==true)
-          this.length = this.arr.reduce((a, b) => a + b.qty, 0)
-
-// console.log(this.arr.);
+          this.arr=data.filter((e:any)=>e.Isdeleted!==true)
+          this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
+         
+// console.log(data[0]);
 
           
        ;
