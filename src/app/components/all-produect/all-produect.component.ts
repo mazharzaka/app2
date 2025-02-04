@@ -15,13 +15,15 @@ import { ToastrService } from 'ngx-toastr';
 export class AllProduectComponent {
   arr:any[]=[]
   imgurl=''
-
+length:number=0
 constructor(private apiService:ApiService,private toastr: ToastrService,private Auth:LogService,private Cart:CartService,private route:Router){}
   ngOnInit(): void {
     this.apiService.getData().subscribe(data=>{
       // console.log(data);
       this.imgurl=this.apiService.imgUrl
       this.arr=data.filter(e=>e.Isdeleted!==true)
+      // this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
+      // this.Cart.updateCartCount(this.length);
     })
   }
 addtocart(id:any){
@@ -36,7 +38,7 @@ this.Cart.Addtocart({
 }).subscribe({
   next: (response) => {
     this.toastr.success('Item added to cart successfully!', 'Success');
-    // console.log('Addition successful', this.toastr);
+  //  this.ngOnInit();
   },
   error: (err) => {
     this.toastr.error('Failed to add item to cart. Please try again.', 'Error');

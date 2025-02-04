@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { LogService } from './log.service';
 import { Order } from '../models/Order.model';
@@ -13,7 +13,10 @@ export class CartService {
 imgUrl = 'http://localhost:3000/'
 
   constructor(private http: HttpClient, private Auth: LogService) {}
-
+  private cartCount = new BehaviorSubject<number>(0);
+  cartCount$ = this.cartCount.asObservable(); 
+  private orderCount = new BehaviorSubject<number>(0);
+  orderCount$ = this.orderCount.asObservable(); 
   private getHeaders(): Observable<any> {
     return this.Auth.getAcess().pipe(
       switchMap(token => {
@@ -26,7 +29,12 @@ imgUrl = 'http://localhost:3000/'
       })
     );
   }
-
+  updateCartCount(count: number) {
+    this.cartCount.next(count); 
+  }
+  updateOrderCount(count: number) {
+    this.orderCount.next(count); 
+  }
   Addtocart(data: any): Observable<Order> {
     return this.getHeaders().pipe(
       switchMap(headers => this.http.post<Order>(this.url, data, { headers }))
@@ -38,6 +46,12 @@ imgUrl = 'http://localhost:3000/'
       switchMap(headers => this.http.post<Order>(`${this.url}/cart`, data, { headers }))
     );
   }
+  getMyorders(data: any): Observable<Order> {
+    return this.getHeaders().pipe(
+      switchMap(headers => this.http.post<Order>(`${this.url}/Myorders`, data, { headers }))
+    );
+  }
+
 
   deleorder(data: any): Observable<Order> {
     return this.getHeaders().pipe(
@@ -69,9 +83,5 @@ imgUrl = 'http://localhost:3000/'
     );
   }
 
-  received(data: any): Observable<Order> {
-    return this.getHeaders().pipe(
-      switchMap(headers => this.http.post<Order>(`${this.url}/received`, data, { headers }))
-    );
-  }
+
 }

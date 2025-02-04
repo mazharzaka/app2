@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   Isuser = true;
   arr: any[] = [];
   length: number = 0;
+  Olength: number = 0;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private Auth: LogService, private router: Router,private cdr:ChangeDetectorRef , private Cart: CartService) {}
@@ -27,7 +28,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.login = !!user;
       this.Isuser = this.Auth.decode()?.userType === 'user' ? true : false
       this.length = this.arr?.reduce((a, b) => a + (b.qty || 0), 0);
-
+      this.Cart.cartCount$.subscribe((count) => {
+        this.length = count;
+      });
+      this.Cart.orderCount$.subscribe((count) => {
+        this.Olength = count;
+      });
     });
     const authSub = this.Auth.getAcess().pipe(take(1)).subscribe({
       next: (data) => {
@@ -49,8 +55,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     const cartSub = this.Cart.getcart({ userid: userId }).pipe(take(1)).subscribe({
       next: (data) => {
-        if (Array.isArray(data) && data.length > 0 && data[0]?.cartItem) {
-          this.arr = data[0].cartItem.filter((e: any) => e.Isdeleted !== true);
+        if (Array.isArray(data) && data.length > 0 && data) {
+          this.arr=data.filter((e:any)=>e.Isdeleted!==true)
+
           this.length = this.arr.reduce((a, b) => a + (b.qty || 0), 0);
         } else {
           console.warn('Expected data to be a non-empty array with cartItem');
@@ -60,7 +67,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
         console.error('Error fetching cart data:', err);
       }
     });
+    const orderSub = this.Cart.getMyorders({ userid: userId }).pipe(take(1)).subscribe({
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0 && data) {
+          this.arr=data.filter((e:any)=>e.Isdeleted!==true)
+
+          this.Olength = this.arr.reduce((a, b) => a + (b.qty || 0), 0);
+        } else {
+          console.warn('Expected data to be a non-empty array with cartItem');
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching cart data:', err);
+      }
+    });
     this.subscriptions.add(cartSub);
+    this.subscriptions.add(orderSub);
     this.cdr.detectChanges();
   }
 

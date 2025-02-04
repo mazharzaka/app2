@@ -10,21 +10,31 @@ import { Order } from '../../models/Order.model';
   templateUrl: './userorder.component.html',
   styleUrl: './userorder.component.css'
 })
-export class UserorderComponent {
-constructor(private Auth:LogService,private Cart:CartService){}
+export class UserorderComponent {constructor(private Auth:LogService,private Cart:CartService){}
   arr:any[]=[]
-    imgurl=''
+  imgurl='http://localhost:3000/'
+   length:number=0
+   checkOut=false
  ngOnInit(): void{
 const userId=this.Auth.decode().userId
 
-  this.Cart.getcart({userid:userId}).subscribe( {
+  this.Cart.getMyorders({userid:userId}).subscribe( {
       next: (data) => {
-        this.imgurl=this.Cart.imgUrl
+
         if (Array.isArray(data)) {
-          this.arr = data.filter((e: Order) => e.received === true);
+          this.arr=data.filter((e:any)=>e.Isdeleted!==true)
+          this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
+          this.Cart.updateOrderCount(this.length);
+         
+// console.log(data[0]);
+
+          
+       ;
         } else {
-          console.error('Data is not an array:', data);
+          console.error('Expected data to be an array');
         }
+
+        // console.log(data);
         
       },
       error: (err) => {
@@ -33,18 +43,4 @@ const userId=this.Auth.decode().userId
     }
   )
 }
-dele(data:any){
-  console.log(data);
-  
-  this.Cart.deleorder({data}).subscribe({
-    next: (response) => {
-      this.ngOnInit(); // Refresh data on success
-      console.log('Deletion successful:', response);
-    },
-    error: (err) => {
-      console.error('Error during deletion:', err);
-    },
-  });
-  
-} 
 }

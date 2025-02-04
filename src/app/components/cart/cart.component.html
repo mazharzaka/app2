@@ -32,7 +32,7 @@
         </thead>
         <tbody>
           <ng-container *ngFor="let p of arr">
-          <tr *ngIf="!p.received" >
+          <tr>
             <td class="watch-pic">
               <a>
                 <img class="sm-pic" [src]="imgurl+p.productId.imgeURL" alt="Product Image">
