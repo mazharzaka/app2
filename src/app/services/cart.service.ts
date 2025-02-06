@@ -30,9 +30,12 @@ imgUrl = 'http://localhost:3000/'
     );
   }
   updateCartCount(count: number) {
+    console.log('cart Count:', count); 
     this.cartCount.next(count); 
   }
-  updateOrderCount(count: number) {
+  updateOrderCount(count: number) {  
+    console.log('Order Count:', count); 
+
     this.orderCount.next(count); 
   }
   Addtocart(data: any): Observable<Order> {
@@ -43,7 +46,8 @@ imgUrl = 'http://localhost:3000/'
 
   getcart(data: any): Observable<Order> {
     return this.getHeaders().pipe(
-      switchMap(headers => this.http.post<Order>(`${this.url}/cart`, data, { headers }))
+      switchMap(headers => this.http.post<Order>(`${this.url}/cart`, data, { headers })),
+      
     );
   }
   getMyorders(data: any): Observable<Order> {

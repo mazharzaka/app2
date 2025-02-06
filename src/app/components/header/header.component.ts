@@ -3,7 +3,7 @@ import { LogService } from '../../services/log.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { Order } from '../../models/Order.model';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -20,21 +20,75 @@ export class HeaderComponent implements OnInit, OnDestroy {
   Olength: number = 0;
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private Auth: LogService, private router: Router,private cdr:ChangeDetectorRef , private Cart: CartService) {}
+  constructor(private Auth: LogService, private router: Router, private cdr: ChangeDetectorRef, public Cart: CartService) { }
 
   ngOnInit(): void {
     const userId = this.Auth.decode()?.userId;
-    this.Auth.currentUser$.subscribe((user) => {
+    // const userId = this.Auth.decode().userId
+if(this.Auth.decode()?.userType === 'user'){
+    this.Cart.getcart({ userid: userId }).subscribe({
+      next: (data) => {
+
+        if (Array.isArray(data)) {
+          this.arr = data[0].cartItem?.filter((e: any) => e.Isdeleted !== true)
+          this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
+          this.Cart.updateCartCount(this.length);
+
+
+        } else {
+          console.error('Expected data to be an array');
+        }
+
+        // console.log(data);
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    }
+
+    );
+    this.Cart.getMyorders({ userid: userId }).subscribe({
+      next: (data) => {
+
+        if (Array.isArray(data)) {
+          this.arr = data[0].cartItem?.filter((e: any) => e.Isdeleted !== true)
+          this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
+          this.Cart.updateOrderCount(this.length);
+
+          // this.total=data[0]._doc?.totalPriceOrder
+
+
+
+
+          ;
+        } else {
+          console.error('Expected data to be an array');
+        }
+
+        // console.log(data);
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    }
+    )
+}
+    combineLatest([
+      this.Auth.currentUser$,
+      this.Cart.cartCount$,
+      this.Cart.orderCount$
+    ]).subscribe(([user, cartCount, orderCount]) => {
       this.login = !!user;
-      this.Isuser = this.Auth.decode()?.userType === 'user' ? true : false
-      this.length = this.arr?.reduce((a, b) => a + (b.qty || 0), 0);
-      this.Cart.cartCount$.subscribe((count) => {
-        this.length = count;
-      });
-      this.Cart.orderCount$.subscribe((count) => {
-        this.Olength = count;
-      });
+      this.Isuser = this.Auth.decode()?.userType === 'user';
+
+      this.length = cartCount;
+      this.Olength = orderCount;
+      console.log(cartCount, orderCount);
+
     });
+
     const authSub = this.Auth.getAcess().pipe(take(1)).subscribe({
       next: (data) => {
         if (data) {
@@ -46,9 +100,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.login = false;
         }
         console.log('Login status:', this.login);
-        
+
         this.cdr.detectChanges();
-        
+
       }
     });
     this.subscriptions.add(authSub);
@@ -56,7 +110,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const cartSub = this.Cart.getcart({ userid: userId }).pipe(take(1)).subscribe({
       next: (data) => {
         if (Array.isArray(data) && data.length > 0 && data) {
-          this.arr=data.filter((e:any)=>e.Isdeleted!==true)
+          this.arr = data.filter((e: any) => e.Isdeleted !== true)
 
           this.length = this.arr.reduce((a, b) => a + (b.qty || 0), 0);
         } else {
@@ -70,7 +124,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const orderSub = this.Cart.getMyorders({ userid: userId }).pipe(take(1)).subscribe({
       next: (data) => {
         if (Array.isArray(data) && data.length > 0 && data) {
-          this.arr=data.filter((e:any)=>e.Isdeleted!==true)
+          this.arr = data.filter((e: any) => e.Isdeleted !== true)
 
           this.Olength = this.arr.reduce((a, b) => a + (b.qty || 0), 0);
         } else {

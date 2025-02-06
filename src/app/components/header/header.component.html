@@ -20,10 +20,10 @@
      
       <!-- <a href="#quick" class="item cart"></a> -->
         <li class="item"><a routerLink="/cart" class="home-na">Cart</a>
-          <span class="length">[{{length}}]</span>
+          <span class="length">[{{ Cart.cartCount$ | async }}]</span>
         </li>
         <li class="item"><a routerLink="/UpdateCart" class="home-na">MyOrders</a>
-          <span class="length">[{{Olength}}]</span>
+          <span class="length">[{{ Cart.orderCount$ | async }}]</span>
         </li>
     </div>
   </div>

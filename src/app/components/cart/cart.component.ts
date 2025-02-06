@@ -17,7 +17,8 @@ export class CartComponent {
   arr: any[] = []
   imgurl = 'http://localhost:3000/'
   length: number = 0
-  checkOut = false
+  checkOut = false;
+  total:number=0;
   ngOnInit(): void {
     const userId = this.Auth.decode().userId
 
@@ -25,14 +26,12 @@ export class CartComponent {
       next: (data) => {
 
         if (Array.isArray(data)) {
-          this.arr = data.filter((e: any) => e.Isdeleted !== true)
+          this.arr = data[0].cartItem?.filter((e: any) => e.Isdeleted !== true)
           this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
           this.Cart.updateCartCount(this.length);
+          this.total=data[0]._doc?.totalPriceCart
+console.log(data);
 
-          // console.log(data[0]);
-
-
-          ;
         } else {
           console.error('Expected data to be an array');
         }
