@@ -32,7 +32,7 @@ if(this.Auth.decode()?.userType === 'user'){
         if (Array.isArray(data)) {
           this.arr = data[0].cartItem?.filter((e: any) => e.Isdeleted !== true)
           this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
-          this.Cart.updateCartCount(this.length);
+          this.Cart?.updateCartCount(this.length);
 
 
         } else {

@@ -28,8 +28,9 @@ constructor(private apiService:ApiService,private toastr: ToastrService,private 
   }
 addtocart(id:any){
 // console.log(id);
-console.log(this.Auth.decode().userId);
+// console.log(this.Auth.decode().userId);
 const userId=this.Auth.decode().userId
+console.log(id,userId);
 this.Cart.Addtocart({ 
   productId: id, 
   userid: userId, 
@@ -38,7 +39,10 @@ this.Cart.Addtocart({
 }).subscribe({
   next: (response) => {
     this.toastr.success('Item added to cart successfully!', 'Success');
-  //  this.ngOnInit();
+    this.Cart?.updateCartCount(response.cartItem?.reduce((a, b) => a + b.qty, 0));
+  
+    
+  
   },
   error: (err) => {
     this.toastr.error('Failed to add item to cart. Please try again.', 'Error');

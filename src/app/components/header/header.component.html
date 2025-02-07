@@ -13,18 +13,18 @@
       <li class="item"><a href="/admin/orders" class="home-na">Orders</a></li>
       <li class="item"><a href="/admin/sales" class="home-na">Sales</a></li>
      </ul>
-      <li class="item" *ngIf="login"><a routerLink="/login" (click)="logout()" class="home-na">logout</a></li>
-      <li class="item" *ngIf="!login"><a routerLink="/login"  class="home-na">login</a></li>
-    
-    <div class="icons flex"  *ngIf="Isuser">
+     <li class="item" *ngIf="!login"><a routerLink="/login"  class="home-na">login</a></li>
      
-      <!-- <a href="#quick" class="item cart"></a> -->
-        <li class="item"><a routerLink="/cart" class="home-na">Cart</a>
-          <span class="length">[{{ Cart.cartCount$ | async }}]</span>
-        </li>
-        <li class="item"><a routerLink="/UpdateCart" class="home-na">MyOrders</a>
-          <span class="length">[{{ Cart.orderCount$ | async }}]</span>
-        </li>
+     <div class="icons flex"  *ngIf="Isuser">
+       
+       <!-- <a href="#quick" class="item cart"></a> -->
+       <li class="item"><a routerLink="/cart" class="home-na">Cart</a>
+        <span class="length">[{{ Cart.cartCount$ | async }}]</span>
+      </li>
+      <li class="item"><a routerLink="/UpdateCart" class="home-na">MyOrders</a>
+        <span class="length">[{{ Cart.orderCount$ | async }}]</span>
+      </li>
     </div>
+    <li class="item" *ngIf="login"><a routerLink="/login" (click)="logout()" class="home-na">logout</a></li>
   </div>
 </div>

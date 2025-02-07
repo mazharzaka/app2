@@ -34,7 +34,7 @@
           <ng-container *ngIf="!p.received">          
              <!-- > </ng-container> -->
           <ng-container class="flex" >
-          <ng-container >
+          <ng-container  >
             <tr  [ngClass]="{'active':p.status}">
  
             <td class="watch-pic" >
@@ -67,14 +67,15 @@
                 </div>
                 </td>
               <td>
-                <form class="max-w-sm mx-auto" >
+                <form class="max-w-sm mx-auto" *ngFor="let item of filteredItems" >
                   <!-- <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label> -->
-                  <select id="countries" [(ngModel)]="status" name="status" (change)="onStatusChange($event,p.userid)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select id="countries" [(ngModel)]="item.status" name="status" (change)="onStatusChange($event,p.userid,item._id)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" disabled selected>Choose a Status</option>
                     <option value="Pending" selected>Pending</option>
                     <option value="Accepted">Accepted</option>
                     <option value="Rejected">Rejected</option>
                     <option value="Delivered">Delivered</option>
+                    <option value="Mixed">Mixed</option>
                   </select>
                 </form>
                 </td>
