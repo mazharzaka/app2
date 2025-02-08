@@ -17,18 +17,48 @@ import { CategoryComponent } from './components/category/category.component';
 
 
 const routes: Routes = [
-  {path:"",component:HomeComponent,canActivate:[gardGuard]},
-  {path:"login",component:LoginComponent},
-  {path:"signup",component:SignupComponent},
-  {path:"cart",component:CartComponent,canActivate:[gardGuard]},
-  {path:"details",component:WatchproduectComponent,canActivate:[gardGuard]},
-  {path:"UpdateCart",component:UserorderComponent,canActivate:[gardGuard]},
-  {path:"filter",component:CategoryComponent,canActivate:[gardGuard]},
-  {path:"admin",component:DashboardComponent,canActivate:[dashGuard]},
-  {path:"edit",component:EditComponent,canActivate:[dashGuard]},
-  {path:"admin/orders",component:OrdersAdminComponent,canActivate:[dashGuard]},
-  {path:"admin/sales",component:SalesComponent,canActivate:[dashGuard]},
-  {path:"admin/addproduect",component:AddprodectComponent,canActivate:[dashGuard]},
+  {
+    path: "",
+    component: HomeComponent,
+    canActivate: [gardGuard]
+  },
+  {
+    path: "login",
+    component: LoginComponent
+  },
+  {
+    path: "signup",
+    component: SignupComponent
+  },
+  {
+    path: "cart",
+    canActivate: [gardGuard],
+    children: [
+      { path: "", component: CartComponent },
+      { path: "update", component: UserorderComponent }
+    ]
+  },
+  {
+    path: "details",
+    component: WatchproduectComponent,
+    canActivate: [gardGuard]
+  },
+  {
+    path: "filter",
+    component: CategoryComponent,
+    canActivate: [gardGuard]
+  },
+  {
+    path: "admin",
+    canActivate: [dashGuard],
+    children: [
+      { path: "", component: DashboardComponent },
+      { path: "orders", component: OrdersAdminComponent },
+      { path: "sales", component: SalesComponent },
+      { path: "add-product", component: AddprodectComponent },
+      { path: "edit", component: EditComponent }
+    ]
+  }
 ];
 
 @NgModule({

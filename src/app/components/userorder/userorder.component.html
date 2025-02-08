@@ -57,8 +57,13 @@
         <!-- Add more product +s(click)="dele(p._id)" as needed -->
       </tbody>
     </table>
+    <div class=" flex justify-between">
+      <div class="">
+        <span>Total Price:</span>
+        <span>{{total}}$</span>
+      </div></div>
     <div class="btns">
-      <div class="btn-cart" routerLink="/UpdateCart">Orders</div>
+      <div class="btn-cart" routerLink="/cart">cart</div>
       <!-- <div class="btn-cart" (click)="check()" >CheckOut</div> -->
       <div routerLink="/" class="btn-cart">
         <a class="shopping">Continue Shopping</a>

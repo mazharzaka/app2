@@ -40,6 +40,20 @@ export class LoginComponent {
               },
               error: (err) => console.error('Error fetching cart data:', err)
             });
+            this.Cart.getMyorders({ userid: this.Auth.decode().userId }).subscribe({
+              next: (data) => {
+                if (Array.isArray(data) && data.length > 0) {
+                  const cart = data[0];
+                  this.arr = cart.cartItem?.filter((e: any) => e.Isdeleted !== true);
+                  this.length = this.arr.reduce((a, b) => a + (b.qty || 0), 0);
+                  console.log('myorders:', this.arr);
+
+                  // تحديث العدد في السلة
+                  this.Cart.updateOrderCount(this.length);
+                }
+              },
+              error: (err) => console.error('Error fetching cart data:', err)
+            });
 
             this.router.navigate(['/']);
           }

@@ -3,6 +3,7 @@ import { CartService } from '../../services/cart.service';
 import { Order } from '../../models/Order.model';
 import { LogService } from '../../services/log.service';
 import { ToastrService } from 'ngx-toastr';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-orders-admin',
@@ -23,20 +24,13 @@ export class OrdersAdminComponent {
       next: (data: any) => {
         console.log(data);
         this.imgurl = this._http.imgUrl
-
         this.arr = data
-
-        this.filteredItems = data[0]?.cartItem.filter(((item: any) => !item.Isdeleted && item.CheckOut))
-        // this.status=this.filteredItems[0]?.status
-        // const statuses = this.filteredItems.map((item: any) => item.status);
-        // const uniqueStatuses = new Set(statuses);
-        // if (uniqueStatuses.size === 1) {
-        //   this.status = statuses[0];
-        // } else {
-        //   this.status = 'Mixed';
-        // }
-
+        this.filteredItems = data.map((order: any) => 
+          order.cartItem.filter((item: any) => !item.Isdeleted && item.CheckOut)
+        )
         this.total = this.filteredItems.reduce((a: any, b: any) => a + b.qty * b.productId.price, 0)
+        console.log(this.filteredItems);
+        
       },
       error: (err) => {
         console.log(err);
@@ -44,6 +38,14 @@ export class OrdersAdminComponent {
       }
     })
   }
+  getProductNames(item: any[]): any {
+    const product = item.map((e: any) => {
+      return { name: e.productId.name, qty: e.qty, status: e.status, id: e.productId._id };
+    });
+    console.log(product);
+    return product;
+  }
+
 
   onStatusChange(e: any, userId: any,id:any) {
     // const userId=this.Auth.decode().userId
