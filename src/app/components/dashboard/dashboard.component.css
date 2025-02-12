@@ -253,6 +253,21 @@ table {
     cursor: pointer;
     transition: 0.5s;
   }
+  @media screen and (max-width: 768px) {
+    p-table {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+    }
+    th, td {
+      white-space: nowrap;
+    }
+  }
+  
   @media screen and (max-width:768px){
     .btns{
         flex-direction: column;

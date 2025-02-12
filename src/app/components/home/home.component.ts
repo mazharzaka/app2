@@ -1,5 +1,5 @@
 import {Component, OnInit } from '@angular/core';
-import 'swiper/swiper-bundle.css';
+// import 'swiper/swiper-bundle.css';
 import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-home',

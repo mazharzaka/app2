@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   arr:any[]=[];
   imgurl=''
   constructor(private apiService:ApiService,private route:Router){}
@@ -20,6 +20,7 @@ export class DashboardComponent {
       this.arr=data.filter(e=>e.Isdeleted!==true)
     })
   }
+  
   dele(data:any){
     console.log(data);
     
@@ -34,6 +35,13 @@ export class DashboardComponent {
     });
     
   }    
+  getSeverity(status: string) {
+    if (status ) {
+      return 'danger';
+    }
+    else{
+      return 'success';
+    }}
   stock(data:any){
     console.log(data);
     
@@ -49,7 +57,7 @@ export class DashboardComponent {
     
   }   
   edit(data:any){
-    this.route.navigate(['/edit'],{queryParams:{id:data}});
+    this.route.navigate(['/admin/edit'],{queryParams:{id:data}});
     console.log(data);
   }
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import Aura from '@primeng/themes/aura';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -24,7 +24,12 @@ import { CategoryComponent } from './components/category/category.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { providePrimeNG } from 'primeng/config';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +57,9 @@ import { CommonModule } from '@angular/common';
     SlickCarouselModule ,
     CommonModule,
     FormsModule,
+    TableModule,TagModule,
+    RatingModule,
+    ButtonModule,
     BrowserAnimationsModule, // Required for animations
     ToastrModule.forRoot({
      
@@ -59,7 +67,13 @@ import { CommonModule } from '@angular/common';
       preventDuplicates: true,
     }), 
   ],
-  providers: [],
+  providers: [
+    providePrimeNG({
+      theme: {
+          preset: Aura
+      }
+  })
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,14 +9,14 @@ import { Order } from '../models/Order.model';
   providedIn: 'root'
 })
 export class CartService {
-  private url = "http://localhost:3000/order";
+  private url = "http://localhost:3000/cart";
 imgUrl = 'http://localhost:3000/'
 
   constructor(private http: HttpClient, private Auth: LogService) {}
   private cartCount = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCount.asObservable(); 
-  private orderCount = new BehaviorSubject<number>(0);
-  orderCount$ = this.orderCount.asObservable(); 
+  // private orderCount = new BehaviorSubject<number>(0);
+  // orderCount$ = this.orderCount.asObservable(); 
   private getHeaders(): Observable<any> {
     return this.Auth.getAcess().pipe(
       switchMap(token => {
@@ -33,11 +33,7 @@ imgUrl = 'http://localhost:3000/'
     console.log('cart Count:', count); 
     this.cartCount.next(count); 
   }
-  updateOrderCount(count: number) {  
-    console.log('Order Count:', count); 
-
-    this.orderCount.next(count); 
-  }
+ 
   Addtocart(data: any): Observable<Order> {
     return this.getHeaders().pipe(
       switchMap(headers => this.http.post<Order>(this.url, data, { headers }))
@@ -50,11 +46,11 @@ imgUrl = 'http://localhost:3000/'
       
     );
   }
-  getMyorders(data: any): Observable<Order> {
-    return this.getHeaders().pipe(
-      switchMap(headers => this.http.post<Order>(`${this.url}/Myorders`, data, { headers }))
-    );
-  }
+  // getMyorders(data: any): Observable<Order> {
+  //   return this.getHeaders().pipe(
+  //     switchMap(headers => this.http.post<Order>(`${this.url}/Myorders`, data, { headers }))
+  //   );
+  // }
 
 
   deleorder(data: any): Observable<Order> {
@@ -63,23 +59,23 @@ imgUrl = 'http://localhost:3000/'
     );
   }
 
-  getadmin(): Observable<Order> {
-    return this.getHeaders().pipe(
-      switchMap(headers => this.http.get<Order>(`${this.url}/admin`, { headers }))
-    );
-  }
+  // getadmin(): Observable<Order> {
+  //   return this.getHeaders().pipe(
+  //     switchMap(headers => this.http.get<Order>(`${this.url}/admin`, { headers }))
+  //   );
+  // }
 
-  staus(data: any): Observable<Order> {
-    return this.getHeaders().pipe(
-      switchMap(headers => this.http.post<Order>(`${this.url}/update`, data, { headers }))
-    );
-  }
+  // staus(data: any): Observable<Order> {
+  //   return this.getHeaders().pipe(
+  //     switchMap(headers => this.http.post<Order>(`${this.url}/update`, data, { headers }))
+  //   );
+  // }
 
-  Check(data: any): Observable<Order> {
-    return this.getHeaders().pipe(
-      switchMap(headers => this.http.post<Order>(`${this.url}/check`, data, { headers }))
-    );
-  }
+  // Check(data: any): Observable<Order> {
+  //   return this.getHeaders().pipe(
+  //     switchMap(headers => this.http.post<Order>(`${this.url}/check`, data, { headers }))
+  //   );
+  // }
 
   qty(data: any): Observable<Order> {
     return this.getHeaders().pipe(

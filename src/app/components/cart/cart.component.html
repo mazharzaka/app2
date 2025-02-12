@@ -52,23 +52,9 @@
             </td>
             <td class="price-table" colspan="2">{{p.productId.price*p.qty}}$</td>
             <!-- <td class="price-table" *ngIf="!p.status" colspan="1">{{p.productId.price*p.qty}}$</td> -->
-             <ng-container *ngIf="!p.CheckOut">
-            <td class="qty-table" *ngIf="p.status">
-              <span class="button" (click)="dele(p.productId)"  >Delete</span>
-            </td></ng-container>
-            <ng-container *ngIf="p.CheckOut">
-              <td class="qty-table " *ngIf="p.status==='Pending'">
-
-                <div class="text-2xl text-cyan-800 " >pending</div>
-                <div class="button " (click)="dele(p.productId)"  >Cancle</div>
-
-              </td>
-            <td class="qty-table" colspan="1" *ngIf="p.status==='Accepted'">
-              <span class="deli" >Product in delivery stage</span>
-            </td>
-            <td class="qty-table" colspan="1" *ngIf="p.status==='Delivered'">
-              <span class="received" >Product is received</span>
-            </td></ng-container>
+   
+            <td class="qty-table">
+              <div class="btn-cart" (click)="dele(p.productId)">Remove</div>
           </tr>
         </ng-container>
 

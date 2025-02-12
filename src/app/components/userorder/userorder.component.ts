@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LogService } from '../../services/log.service';
-import { CartService } from '../../services/cart.service';
-import { Order } from '../../models/Order.model';
+import { OrdersService } from '../../services/orders.service';
+
 
 @Component({
   selector: 'app-userorder',
@@ -10,26 +10,24 @@ import { Order } from '../../models/Order.model';
   templateUrl: './userorder.component.html',
   styleUrl: './userorder.component.css'
 })
-export class UserorderComponent {constructor(private Auth:LogService,private Cart:CartService){}
+export class UserorderComponent {constructor(private Auth:LogService,private Order:OrdersService){}
   arr:any[]=[]
   imgurl='http://localhost:3000/'
    length:number=0
    checkOut=false;
    total:number=0;
- ngOnInit(): void{
-const userId=this.Auth.decode().userId
+   loodOrder(){
+    const userId=this.Auth.decode().userId
 
-  this.Cart.getMyorders({userid:userId}).subscribe( {
+  this.Order.getdata({userid:userId}).subscribe( {
       next: (data) => {
 
         if (Array.isArray(data)) {
-          this.arr=data[0].cartItem?.filter((e:any)=>e.Isdeleted!==true)
+          this.arr=data.flatMap((item:any)=>item.items)
           this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
-          this.Cart.updateOrderCount(this.length);
+          this.Order.updateOrderCount(this.length);
          
-          this.total=data[0]._doc?.totalPriceOrder
-
-
+          this.total=data.reduce((a:any,b:any)=>a+b.totalPriceOrder,0)
 
           
        ;
@@ -46,4 +44,8 @@ const userId=this.Auth.decode().userId
     }
   )
 }
+  
+ ngOnInit(): void{
+this.loodOrder()
 }
+ }
