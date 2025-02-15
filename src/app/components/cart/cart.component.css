@@ -27,6 +27,7 @@ table {
     border-radius: 20px;
     margin-right: 15px;
     color: #e6e5e5;
+    text-align: center;
     transition: 0.2s;
     cursor: pointer;
   }

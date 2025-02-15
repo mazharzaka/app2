@@ -14,10 +14,12 @@ import { OrdersService } from '../../services/orders.service';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  constructor(private Auth: LogService, private toastr: ToastrService, private Cart: CartService, private Order: OrdersService) { }
+  constructor(private Auth: LogService, private toastr: ToastrService, public Cart: CartService, private Order: OrdersService) { }
   arr: any[] = []
+  oarr: any[] = []
   imgurl = 'http://localhost:3000/'
   length: number = 0
+  olength: number = 0
   checkOut = false;
   total:number=0;
   loadCart() {const userId = this.Auth.decode().userId
@@ -44,7 +46,34 @@ console.log(data);
       }
     }
     )}
-
+    loodOrder(){
+      const userId=this.Auth.decode().userId
+  
+    this.Order.getdata({userid:userId}).subscribe( {
+        next: (data) => {
+  
+          if (Array.isArray(data)) {
+            this.oarr=data.flatMap((item:any)=>item.items)
+            this.olength = this.oarr?.reduce((a, b) => a + b.qty, 0)
+            this.Order.updateOrderCount(this.olength);
+           
+            // this.total=data.reduce((a:any,b:any)=>a+b.totalPriceOrder,0)
+  
+            
+         ;
+          } else {
+            console.error('Expected data to be an array');
+          }
+  
+          // console.log(data);
+          
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      }
+    )
+  }
   ngOnInit(): void {
     this.loadCart();
   }
@@ -85,6 +114,9 @@ console.log(data);
     this.Order.Check({ userid: userId }).subscribe({
       next: () => {
         this.loadCart();
+        this.Cart.updateCartCount(0);
+this.loodOrder()
+    this.arr=[]
         this.toastr.success('checkout successful!', 'Success');
         // this.checkOut=true
       },

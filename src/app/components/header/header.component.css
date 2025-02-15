@@ -6,12 +6,12 @@
     align-items: center;
     background-color: #fff;
     top: 0;
-    z-index: 12;
+    z-index:999;
     justify-content: space-between;
     transition: .3s all ease-out
   }
   .logo {
-    margin-left: 100px;
+    /* margin-left: 100px; */
     font-size: 20px;
     font-weight: 300;
     text-transform: uppercase;
@@ -20,7 +20,7 @@
   }
   
 .list {
-    display: flex;
+    /* display: flex; */
     list-style-type: none;
     margin-right: 20px;
     height: 100%;

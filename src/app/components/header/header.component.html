@@ -1,17 +1,17 @@
 <div class="nav border-b-2 border-gray-600">
-  <a href="/" *ngIf="Isuser" class="logo">E-commerce</a>
-  <a href="/" *ngIf="!Isuser" class="logo">Dashboard</a>
-  <div class="list">
-    <ul class="list" *ngIf="Isuser">
+  <a href="/" *ngIf="Isuser" class="logo md:ml-24 ml-11">E-commerce</a>
+  <a href="/" *ngIf="!Isuser" class="logo md:ml-24 ml-11">Dashboard</a>
+  <div class="list hidden md:flex ">
+    <ul class="list hidden md:flex " *ngIf="Isuser">
       <li class="item"><a routerLink="/" class="home-na">Home</a></li>
       <li class="item"><a href="#TRENDING" class="home-na">Trending</a></li>
       <li class="item"><a href="#products" class="home-na">Produects</a></li>
      </ul>
-     <ul class="list" *ngIf="!Isuser">
+     <ul class="list hidden md:flex " *ngIf="!Isuser">
       <li class="item"><a routerLink="/admin/add-product" class="home-na">Add Prodiect</a></li>
       <li class="item"><a routerLink="/admin" class="home-na">Produects</a></li>
       <li class="item"><a routerLink="/admin/orders" class="home-na">Orders</a></li>
-      <li class="item"><a routerLink="/admin/sales" class="home-na">Sales</a></li>
+      <!-- <li class="item"><a routerLink="/admin/sales" class="home-na">Sales</a></li> -->
      </ul>
      <li class="item" *ngIf="!login"><a routerLink="/login"  class="home-na">login</a></li>
      
@@ -27,4 +27,33 @@
     </div>
     <li class="item" *ngIf="login"><a routerLink="/login" (click)="logout()" class="home-na">logout</a></li>
   </div>
+  <li class="flex md:hidden mr-9">
+    <i class="pi pi-align-justify hover:scale-100 transition-all " (click)="sidebarVisible()"   style="font-size: 1.5rem"></i>
+  </li>
 </div>
+<p-sidebar #sidebar [(visible)]="sidebarVisible3" position="right">
+  <h3 class="p-4 border-b">Menu</h3>
+  <ul class="p-4">
+    <li *ngIf="Isuser"><a routerLink="/" class="block p-2">Home</a></li>
+    <li *ngIf="Isuser"><a href="#TRENDING" class="block p-2">Trending</a></li>
+    <li *ngIf="Isuser"><a href="#products" class="block p-2">Products</a></li>
+    <li class="item"><a routerLink="/cart" class="block p-2">Cart</a>
+      <span class="length">[{{ Cart.cartCount$ | async }}]</span>
+    </li>
+    <li class="item"><a routerLink="/cart/update" class="block p-2">MyOrders</a>
+      <span class="length">[{{ Order.orderCount$ | async }}]</span>
+    </li>
+    <li *ngIf="!Isuser"><a routerLink="/admin/add-product" class="block p-2">Add Product</a></li>
+    <li *ngIf="!Isuser"><a routerLink="/admin" class="block p-2">Products</a></li>
+    <li *ngIf="!Isuser"><a routerLink="/admin/orders" class="block p-2">Orders</a></li>
+    <li *ngIf="!Isuser"><a routerLink="/admin/sales" class="block p-2">Sales</a></li>
+    
+    <li *ngIf="!login"><a routerLink="/login" class="block p-2">Login</a></li>
+    <li *ngIf="login"><a routerLink="/login" (click)="logout()" class="block p-2">Logout</a></li>
+  </ul>
+</p-sidebar>
+
+<button (click)="sidebarVisible()" class="p-button p-ml-auto md:hidden">
+  <i class="pi pi-align-justify"></i>
+</button>
+

@@ -2,7 +2,7 @@
     <div class="cotain">
       <div class="big">Cart</div>
       <div class="wish">
-        Cart <span>[{{length}}]</span>
+        Cart <span>[{{ Cart.cartCount$ | async }}]</span>
       </div>
     </div>
 
@@ -20,6 +20,7 @@
 
     <!-- If cart contains items -->
     <div class="card-list" *ngIf="arr.length>0">
+      <div class="w-full overflow-x-auto">
       <table>
         <thead class="titoftable">
           <tr>
@@ -33,10 +34,11 @@
         <tbody>
           <ng-container *ngFor="let p of arr">
           <tr>
-            <td class="watch-pic">
-              <a>
-                <img class="sm-pic" [src]="imgurl+p.productId.imgeURL" alt="Product Image">
-              </a>
+            <td class="p-2">
+              <img class="block w-16 h-16 md:w-20 md:h-20 rounded-md max-w-none" 
+                   [src]="imgurl+p.productId.imgeURL" 
+                   alt="Product Image"
+                   >
             </td>
             <td class="tit-table">{{p.productId.name}}</td>
             <td class="price-table">{{p.productId.price}}$</td>
@@ -54,21 +56,21 @@
             <!-- <td class="price-table" *ngIf="!p.status" colspan="1">{{p.productId.price*p.qty}}$</td> -->
    
             <td class="qty-table">
-              <div class="btn-cart" (click)="dele(p.productId)">Remove</div>
+              <div class="btn-cart" (click)="dele(p._id)">Remove</div>
           </tr>
         </ng-container>
 
           <!-- Add more product +s(click)="dele(p._id)" as needed -->
         </tbody>
-      </table>
+      </table></div>
       <div class=" flex justify-between">
         <div class="">
           <span>Total Price:</span>
           <span>{{total}}$</span>
         </div></div>
-      <div class="btns">
-        <div class="btn-cart" routerLink="/cart/update">Orders</div>
-        <div class="btn-cart" (click)="check()" >CheckOut</div>
+      <div class="flex w-full justify-end mb-2.5 flex-col md:flex-row">
+        <div class="btn-cart mb-2" routerLink="/cart/update">Orders</div>
+        <div class="btn-cart mb-2" (click)="check()" >CheckOut</div>
         <div routerLink="/" class="btn-cart">
           <a class="shopping">Continue Shopping</a>
         </div>

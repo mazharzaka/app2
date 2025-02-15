@@ -8,6 +8,23 @@ D:\Nti\E-commerce\app2\node_modules\primeicons\primeicons.css
 @tailwind components;
 @tailwind utilities;
 /* @import "primeicons/primeicons.css"; */
+:root {
+  --p-primary-50: #e5e5ff !important;
+  --p-primary-100: #b3b3ff !important;
+  --p-primary-200: #8080ff !important;
+  --p-primary-300: #4d4db3 !important;
+  --p-primary-400: #333399 !important;
+  --p-primary-500: #000366 !important;
+  --p-primary-600: #002e66 !important;
+  --p-primary-700: #004488 !important;
+  --p-primary-800: #0066cc !important;
+  --p-primary-900: #ffb400 !important;
+  --p-primary-950: #f8e71c !important;
+  --p-neutral-light: #e5e5e5 !important;
+  --p-neutral-dark: #b3b3b3 !important;
+  --p-neutral-white: #fdfdfd !important;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0 !important;
@@ -30,4 +47,8 @@ body {
     opacity: 1 !important;
     visibility: visible !important;
   }
-  
+  @media only screen and (max-width: 768px) {
+    .big {
+      display: none;
+    }
+  }

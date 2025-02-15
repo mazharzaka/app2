@@ -16,13 +16,18 @@ import { OrdersService } from '../../services/orders.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   login = false;
   Isuser = true;
+  sidebarVisible3: boolean = false;
   arr: any[] = [];
   length: number = 0;
   Olength: number = 0;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private Auth: LogService, private router: Router,public Order:OrdersService, private cdr: ChangeDetectorRef, public Cart: CartService) { }
-
+  sidebarVisible(){
+    // console.log(this.sidebarVisible3);
+    
+    this.sidebarVisible3=true
+  }
   ngOnInit(): void {
     const userId = this.Auth.decode()?.userId;
     // const userId = this.Auth.decode().userId
@@ -34,6 +39,31 @@ if(this.Auth.decode()?.userType === 'user'){
           this.arr = data[0].cartItem?.filter((e: any) => e.Isdeleted !== true)
           this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
           this.Cart?.updateCartCount(this.length);
+
+
+        } else {
+          console.error('Expected data to be an array');
+        }
+
+        // console.log(data);
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    }
+
+    );
+    this.Order.getdata({ userid: userId }).subscribe({
+      next: (data) => {
+// console.log(data);
+
+        if (Array.isArray(data)) {
+          this.arr = data.flatMap((item:any)=>item.items)
+          console.log(this.arr);
+          
+          this.length = this.arr?.reduce((a, b) => a + b.qty, 0)
+          this.Order?.updateOrderCount(this.length);
 
 
         } else {

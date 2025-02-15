@@ -31,6 +31,8 @@ imgUrl = 'http://localhost:3000/'
   }
   updateCartCount(count: number) {
     console.log('cart Count:', count); 
+    count = count || 0;
+
     this.cartCount.next(count); 
   }
  

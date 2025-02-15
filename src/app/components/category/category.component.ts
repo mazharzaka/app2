@@ -35,9 +35,9 @@ export class CategoryComponent {
       this.selectedOptionFromChild = option;
       this.selectedstFromChild = isStockOption;
       this.selectedPriceFromChild=price
-      console.log('Selected Option from Sidebar:', this.selectedOptionFromChild===this.originalArr[4].category);
-      console.log('Selected Stock Option:', this.selectedstFromChild);
-      console.log('Selected Stock Option:', this.selectedPriceFromChild);
+      // console.log('Selected Option from Sidebar:', this.selectedOptionFromChild===this.originalArr[4].category);
+      // console.log('Selected Stock Option:', this.selectedstFromChild);
+      // console.log('Selected Stock Option:', this.selectedPriceFromChild);
     
       this.arr = this.originalArr.filter(e => {
         const categoryMatch = 

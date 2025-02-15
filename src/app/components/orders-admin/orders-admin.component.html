@@ -20,7 +20,8 @@
 
   <!-- If cart contains items -->
   <div class="card-list">
-    <table *ngIf="filteredItems.length!==0" class="table">
+    <div class="w-full overflow-x-auto">
+    <table  class="table">
       <thead class="titoftable">
         <tr>
           <th colspan="2">PRODUCT</th>
@@ -31,62 +32,46 @@
         </tr>
       </thead>
       <tbody *ngFor="let p of arr; index as i">
-        <ng-container *ngIf="!p.received">
+        <ng-container>
           <!-- > </ng-container> -->
           <ng-container class="flex">
-            <ng-container>
-              <tr [ngClass]="{'active':p.status}">
-
-                <td class="watch-pic">
-                  <!-- -->
-                  <img class="sm-pic" src="imgs/pngwing.com.png" alt="Product Image">
-
+            <ng-container >
+              <tr >
+                <td class="p-2">
+                  <img class="block w-16 h-16 md:w-20 md:h-20 rounded-md max-w-none" 
+                  src="imgs/pngwing.com.png" 
+                       alt="Product Image"
+                       >
                 </td>
+
                 <td class="tit-table">
-                  <td class="tit-table">
-                    <!-- تكرار المنتجات المرتبطة بكل عنصر -->
-                    <div *ngFor="let item of getProductNames(filteredItems[i])">
-                      {{ item.name }} ({{ item.qty }})
+                  <ng-container *ngFor="let item of arr[i].items; let j = index"   >
+                    <div>
+                  {{item.productId.name}} ({{item.qty}})</div></ng-container>
+                  </td> 
                   
-                      <!-- form لتحديث حالة المنتج -->
-                 
-                  
-                      <!-- إظهار اسم المنتجات المرتبطة بالـ item إذا كانت موجودة -->
-                      <div *ngIf="item.productNames && item.productNames.length">
-                        <div *ngFor="let product of item.productNames">
-                          {{ product.name }} ({{ item.qty }})
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  
-                <td class="price-table" >{{arr[i].totalPriceCart}}$</td>
+                <td class="price-table" >{{p.totalPriceOrder}}$</td>
 
                 <!-- <td class="price-table" colspan="2">{{item.productId.price*item.qty}}$</td> -->
 
 
-                <!-- <td class="qty-table">
+                <td class="qty-table">
               <div>
-              <div class="name"> Username: {{p.userid.name}}</div>
-                 <div class="email">Email:{{p.userid.email}}</div>
-               <div class="phone"> Phone: {{p.userid.phone}}</div>
-               <div class="add"> Address: {{p.userid.address}}</div>
+              <div class="name"> Username: {{p.userId.name}}</div>
+                 <div class="email">Email:{{p.userId.email}}</div>
+               <div class="phone"> Phone: {{p.userId.phone}}</div>
+               <div class="add"> Address: {{p.userId.address}}</div>
               </div>
-              </td> -->
+              </td>
                 <td>
-                  <div class="text-center">
-                    <div class="name"> Username: {{p.userid.name}}</div>
-                    <div class="email">Email:{{p.userid.email}}</div>
-                    <div class="phone"> Phone: {{p.userid.phone}}</div>
-                    <div class="add"> Address: {{p.userid.address}}</div>
-                  </div>
+                
                 </td>
                 <td>
 
-                  <ng-container >
-                    <form class="max-w-sm mx-auto" *ngFor="let item of filteredItems[i]" >
+                  <ng-container *ngFor="let item of arr[i].items; let j = index"   >
+                    <form class="max-w-sm mx-auto"  >
                       <!-- <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label> -->
-                      <select id="countries" [(ngModel)]="item.status" name="status" (change)="onStatusChange($event,p.userid,item._id)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <select id="countries" [(ngModel)]="item.status" name="status" (change)="onStatusChange($event,item._id,p._id)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="" disabled selected>Choose a Status</option>
                         <option value="Pending" selected>Pending</option>
                         <option value="Accepted">Accepted</option>
@@ -107,7 +92,7 @@
         <!-- Add more product +s(click)="dele(p._id)" as needed -->
       </tbody>
     </table>
-    
+    </div>
     <div class="btns">
       <div class="btn-cart" routerLink="/admin/sales">Sales</div>
       <!-- <div routerLink="/" class="btn-cart">

@@ -44,11 +44,15 @@ export class SidebarComponent {
     });
   }
   updateselectedst(option: boolean | undefined) {
+    console.log(66);
     this.selectedst = option;
+    
     this.selectedstChange.emit(this.selectedst);
   }
   updateSelectedOption(option: string) {
     this.selectedOption = option;
+    console.log(55);
+
     this.selectedOptionChange.emit(this.selectedOption);
   }
   updatecurrentValueChange(option: number) {

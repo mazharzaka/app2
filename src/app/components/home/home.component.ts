@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit } from '@angular/core';
 // import 'swiper/swiper-bundle.css';
 import { ApiService } from '../../services/api.service';
 @Component({
@@ -39,6 +39,19 @@ export class HomeComponent  implements OnInit  {
       this.imgurl=this.apiService.imgUrl
       this.arr=data.filter(e=>e.Isdeleted!==true).slice(0,4)
     })
+    this.updateSlideConfig()
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.updateSlideConfig();
+  }
+
+  updateSlideConfig() {
+    if (window.innerWidth < 768) {
+      this.PslideConfig.slidesToShow = 1;
+    } else {
+      this.PslideConfig.slidesToShow = 3;
+    }
   }
 
   scrollToSection(): void {

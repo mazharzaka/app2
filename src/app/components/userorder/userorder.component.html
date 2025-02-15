@@ -20,6 +20,7 @@
 
   <!-- If cart contains items -->
   <div class="card-list" *ngIf="arr.length>0">
+    <div class="w-full overflow-x-auto">
     <table>
       <thead class="titoftable">
         <tr>
@@ -34,10 +35,11 @@
       <tbody>
         <ng-container *ngFor="let p of arr">
         <tr  >
-          <td class="watch-pic">
-            <a>
-              <img class="sm-pic" [src]="imgurl+p.productId.imgeURL" alt="Product Image">
-            </a>
+          <td class="p-2">
+            <img class="block w-16 h-16 md:w-20 md:h-20 rounded-md max-w-none" 
+                 [src]="imgurl+p.productId.imgeURL" 
+                 alt="Product Image"
+                 >
           </td>
           <td class="tit-table">{{p.productId.name}}</td>
           <td class="price-table">{{p.productId.price}}$</td>
@@ -57,7 +59,7 @@
 
         <!-- Add more product +s(click)="dele(p._id)" as needed -->
       </tbody>
-    </table>
+    </table></div>
     <div class=" flex justify-between">
       <div class="">
         <span>Total Price:</span>

@@ -17,12 +17,16 @@
       </div>
     </div>
     -->
-    <div class="card mt-4" style="overflow-x: auto">
-      <p-table [value]="arr" [tableStyle]="{ 'min-width': '60rem' }" [globalFilterFields]="['name']">
+    <div class="card mt-4 ">
+      <p-table [value]="arr" class="overflow-x-auto" [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['name']" 
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [paginator]="true"
+      >
           <ng-template #caption>
               <div class="flex items-center justify-between">
                   <span class="text-xl font-bold">produects</span>
-                  <p-button icon="pi pi-refresh" rounded raised />
+                  <!-- <p-button icon="pi pi-refresh" rounded raised /> -->
               </div>
           </ng-template>
           <ng-template #header>
@@ -40,8 +44,8 @@
                 <th pSortableColumn="category" style="width:20%">
                   Category <p-sortIcon field="category" />
               </th>
-                  <th>Reviews</th>
-                  <th>Status</th>
+              <th>Status</th>
+              <!-- <th>Reviews</th> -->
               
               </tr>
           </ng-template>
@@ -57,13 +61,18 @@
                   </td>
                   <td>{{ product.price | currency: 'USD' }}</td>
                   <td>{{ product.category }}</td>
-                  <td><p-rating [(ngModel)]="product.rating" [readonly]="true"  /></td>
+                  <!-- <td><p-rating [(ngModel)]="product.rating" [readonly]="true"  /></td> -->
                   <td>
                       <p-tag [value]="!product.Isstock?'Stock':'OutOfStock'" [severity]="getSeverity(product.Isstock)" />
                   </td>
+                  <td class="qty-table flex">
+                    <span class="button mr-1 bg-yellow-600 hover:bg-yellow-950"   (click)="edit(product._id)" >Edit</span>
+                 <span class="button mr-1 bg-slate-950 hover:bg-blue-900 text-white" (click)="stock(product._id)" >stock</span>
+                 <span class="button bg-red-600 hover:bg-red-950" (click)="dele(product._id)" >Delete</span>
+                </td>
               </tr>
           </ng-template>
-          <ng-template #footer> In total there are {{ arr ? arr.length : 0 }} products. </ng-template>
+          <!-- <ng-template #footer> In total there are {{ arr ? arr.length : 0 }} products. </ng-template> -->
       </p-table>
   </div>
     <!--    <div class="card-list">
@@ -87,11 +96,7 @@
             <td class="tit-table">{{p.name}}</td>
             <td class="price-table">{{p.price}}$</td>
            
-            <td class="qty-table">
-                <span class="button mr-1 bg-yellow-600 hover:bg-yellow-950"   (click)="edit(p._id)" >Edit</span>
-             <span class="button mr-1 bg-slate-950 hover:bg-blue-900 text-white" (click)="stock(p._id)" >stock</span>
-             <span class="button bg-red-600 hover:bg-red-950" (click)="dele(p._id)" >Delete</span>
-            </td>
+          
           </tr>
           <!-- Add more products as needed 
         </tbody>

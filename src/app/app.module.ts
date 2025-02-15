@@ -23,13 +23,16 @@ import { WatchproduectComponent } from './components/watchproduect/watchproduect
 import { CategoryComponent } from './components/category/category.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SliderModule } from 'primeng/slider';
 import { ToastrModule } from 'ngx-toastr';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { SidebarModule } from 'primeng/sidebar';
 import { CommonModule } from '@angular/common';
 import { providePrimeNG } from 'primeng/config';
+import { RadioButtonModule } from 'primeng/radiobutton';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +62,9 @@ import { providePrimeNG } from 'primeng/config';
     FormsModule,
     TableModule,TagModule,
     RatingModule,
-    ButtonModule,
+    SidebarModule,
+    ButtonModule,SliderModule,
+    RadioButtonModule,
     BrowserAnimationsModule, // Required for animations
     ToastrModule.forRoot({
      
@@ -70,7 +75,8 @@ import { providePrimeNG } from 'primeng/config';
   providers: [
     providePrimeNG({
       theme: {
-          preset: Aura
+          preset: Aura,
+          
       }
   })
   ],
